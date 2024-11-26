@@ -1,0 +1,20 @@
+<launch>
+  <!-- Launch the USB camera node -->
+  <node name="logitech_c615" pkg="usb_cam" type="usb_cam_node" output="screen">
+    <!-- Device configuration -->
+    <param name="video_device" value="/dev/video0" /> <!-- Adjust if it's not /dev/video0 -->
+    <param name="image_width" value="1920" />        <!-- Full HD resolution -->
+    <param name="image_height" value="1080" />
+    <param name="pixel_format" value="yuyv" />      <!-- Logitech C615 supports MJPEG -->
+    <param name="io_method" value="mmap" />          <!-- Memory-mapped IO for performance -->
+    <param name="camera_frame_id" value="logitech_c615" /> <!-- Frame ID for TF -->
+
+    <!-- Optional parameters -->
+    <param name="fps" value="30" />                  <!-- Frame rate -->
+    <param name="brightness" value="128" />          <!-- Adjust brightness (0-255) -->
+    <param name="contrast" value="128" />            <!-- Adjust contrast (0-255) -->
+    <param name="saturation" value="128" />          <!-- Adjust saturation (0-255) -->
+    <param name="autoexposure" value="true" />       <!-- Enable auto exposure -->
+  </node>
+</launch>
+

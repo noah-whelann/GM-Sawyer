@@ -1,18 +1,9 @@
 <launch>
-  <!-- Launch the ar_track_alvar node -->
-  <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen">
-    <!-- Set the size of the AR markers (in meters) -->
-    <param name="marker_size" value="0.06096" /> <!-- Replace with your marker size -->
-    <!-- Set the maximum rate at which marker detection runs -->
-    <param name="max_frequency" value="30.0" />
-    <!-- Specify marker IDs to detect (-1 for all) -->
-    <param name="marker_id" value="-1" />
-    <!-- Define the camera frame -->
-    <param name="camera_frame" value="/camera_frame" />
-    <!-- Define the output frame -->
-    <param name="output_frame" value="/world" /> <!-- Set to your desired reference frame -->
-    <!-- Remap image and camera info topics -->
-    <remap from="image" to="/usb_cam/image_raw" /> <!-- Replace with your image topic -->
-    <remap from="camera_info" to="/usb_cam/camera_info" /> <!-- Replace with your camera info topic -->
+  <!-- Static Transform Publisher -->
+  <node pkg="tf" type="static_transform_publisher" name="world_to_camera" args="0 0 0 0 0 0 /world /logitech_c615 100" />
+
+  <!-- Launch the ar_track_alvar node with arguments -->
+  <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen"
+        args="13 0.08 0.2 /logitech_c615/image_raw /logitech_c615/camera_info /world">
   </node>
 </launch>
