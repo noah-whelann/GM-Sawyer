@@ -1,0 +1,8 @@
+prefix=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/install
+
+Name: chess_tracking
+Description: Description of chess_tracking
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
