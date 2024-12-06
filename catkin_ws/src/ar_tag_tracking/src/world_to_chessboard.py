@@ -19,8 +19,7 @@ def calculate_world_to_chessboard():
         # Get the transform
         (trans, rot) = listener.lookupTransform(
             'world', 'chessboard', rospy.Time(0))
-        rospy.loginfo(f"World to Chessboard: Translation={
-                      trans}, Rotation={rot}")
+        rospy.loginfo(f"World to Chessboard: Translation={trans}, Rotation={rot}")
 
     except tf.Exception as e:
         rospy.logerr(f"Error calculating transform: {e}")

@@ -17,7 +17,7 @@ def publish_chessboard_transform():
             tf.transformations.quaternion_from_euler(0, 0, 0),  # No rotation
             rospy.Time.now(),
             "chessboard",  # Child frame
-            "ar_tag_0"  # Parent frame
+            "ar_marker_1"  # Parent frame
         )
         rate.sleep()
 
