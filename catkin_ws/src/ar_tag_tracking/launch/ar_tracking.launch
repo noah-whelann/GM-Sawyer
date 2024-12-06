@@ -6,11 +6,10 @@
   <!-- AR Track Alvar Node -->
   <node name="ar_track_alvar_logitech" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen"
         args="13 0.08 0.2 /logitech_c615/image_raw /logitech_c615/camera_info /world">
-    <!-- Remap AR marker topic -->
     <remap from="/ar_pose_marker" to="/logitech/ar_pose_marker" />
-    <!-- Specify unique marker frame prefix -->
-    <param name="marker_frame" value="logitech_marker_" />
-    <!-- Set base frame to the Logitech camera -->
-    <param name="base_frame" value="/logitech_c615" />
   </node>
+
+  <!-- TF Renaming Node for Logitech -->
+  <node pkg="tf" type="static_transform_publisher" name="logitech_marker_tf_remap" 
+        args="0 0 0 0 0 0 /ar_marker_0 /logitech_marker_0 100" />
 </launch>

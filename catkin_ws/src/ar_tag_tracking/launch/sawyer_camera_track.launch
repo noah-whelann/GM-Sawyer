@@ -6,11 +6,10 @@
   <!-- AR Track Alvar Node -->
   <node name="ar_track_alvar_sawyer" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen"
         args="13 0.08 0.2 /io/internal_camera/right_hand_camera/image_raw /io/internal_camera/right_hand_camera/camera_info /world">
-    <!-- Remap AR marker topic -->
     <remap from="/ar_pose_marker" to="/sawyer/ar_pose_marker" />
-    <!-- Specify unique marker frame prefix -->
-    <param name="marker_frame" value="sawyer_marker_" />
-    <!-- Set base frame to the Sawyer camera -->
-    <param name="base_frame" value="/right_hand_camera" />
   </node>
+
+  <!-- TF Renaming Node for Sawyer -->
+  <node pkg="tf" type="static_transform_publisher" name="sawyer_marker_tf_remap" 
+        args="0 0 0 0 0 0 /ar_marker_0 /sawyer_marker_0 100" />
 </launch>

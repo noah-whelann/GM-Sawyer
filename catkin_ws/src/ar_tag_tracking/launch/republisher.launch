@@ -1,0 +1,4 @@
+<launch>
+  <!-- TF Republisher Node -->
+  <node pkg="ar_tag_tracking" type="tf_republisher.py" name="tf_republisher" output="screen" />
+</launch>
