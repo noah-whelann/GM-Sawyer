@@ -3,6 +3,7 @@
 import rospy
 import tf
 
+
 def publish_chessboard_transform():
     rospy.init_node('chessboard_transform_broadcaster')
 
@@ -10,15 +11,16 @@ def publish_chessboard_transform():
     rate = rospy.Rate(10)  # Broadcast at 10 Hz
 
     while not rospy.is_shutdown():
-        # Assume the AR tag is the origin of the chessboard
+        # Assuming the AR tag is the origin of the chessboard
         broadcaster.sendTransform(
-            (0.0, 0.0, 0.0),  # AR tag is the origin of the chessboard
+            (0.0, 0.0, 0.0),  # Translation (AR tag is at chessboard origin)
             tf.transformations.quaternion_from_euler(0, 0, 0),  # No rotation
             rospy.Time.now(),
             "chessboard",  # Child frame
             "ar_tag_0"  # Parent frame
         )
         rate.sleep()
+
 
 if __name__ == "__main__":
     publish_chessboard_transform()
