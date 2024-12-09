@@ -7,6 +7,11 @@ from cv_bridge import CvBridge
 
 from sensor_msgs.msg import Image
 
+#find where one corner is on the board in terms of pixels
+#transform that into coordinates relative to the webcam
+#find a transformation from the webcam to the base of the robot
+#move the arm to that coordinate
+
 class CameraTest:
     def __init__(self):
         rospy.init_node('camera_test', anonymous=True)

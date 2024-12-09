@@ -12,7 +12,7 @@ from intera_interface import gripper as robot_gripper
 
 #tuck -> move above the piece to pickup -> lower down to piece & grab it ->
 #  move straight up -> move to new piece location -> then lower down to location -> then tuck -> loop
-0.484, 0.443, -0.178, 0.0, 1.0, 0.0, 0.0, 0.865, 0.156, -0.178, 0.0, 1.0, 0.0, 0.0
+#0.484, 0.443, -0.178, 0.0, 1.0, 0.0, 0.0, 0.865, 0.156, -0.178, 0.0, 1.0, 0.0, 0.0
 def main():
     #starts node
     rospy.init_node('service_query')

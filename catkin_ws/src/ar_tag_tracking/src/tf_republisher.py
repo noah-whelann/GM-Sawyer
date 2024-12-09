@@ -34,10 +34,10 @@ def main():
     rospy.init_node('tf_republisher')
 
     # Republish sawyer marker relative to /right_hand_camera
-    sawyer_republisher = TFRepublisher('ar_marker_0', 'sawyer_marker_0', 'right_hand_camera')
+    sawyer_republisher = TFRepublisher('ar_marker_1', 'sawyer_marker_1', 'right_hand_camera')
 
     # Republish logitech marker relative to /logitech_c615
-    logitech_republisher = TFRepublisher('ar_marker_0', 'logitech_marker_0', 'logitech_c615')
+    logitech_republisher = TFRepublisher('ar_marker_1', 'logitech_marker_1', 'logitech_c615')
 
     rate = rospy.Rate(10.0)  # 10 Hz
     while not rospy.is_shutdown():

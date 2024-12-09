@@ -11,5 +11,5 @@
 
   <!-- TF Renaming Node for Sawyer -->
   <node pkg="tf" type="static_transform_publisher" name="sawyer_marker_tf_remap" 
-        args="0 0 0 0 0 0 /ar_marker_0 /sawyer_marker_0 100" />
+        args="0 0 0 0 0 0 /ar_marker_1 /sawyer_marker_1 100" />
 </launch>
