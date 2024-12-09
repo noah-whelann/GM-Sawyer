@@ -136,6 +136,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ar_tag_tracking/cmake_install.cmake")
   include("/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ar_track_alvar/ar_track_alvar/cmake_install.cmake")
   include("/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ik/cmake_install.cmake")
+  include("/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/cmake_install.cmake")
   include("/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/cmake_install.cmake")
 
 endif()

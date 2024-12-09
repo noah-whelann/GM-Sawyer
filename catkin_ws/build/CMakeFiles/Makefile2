@@ -59,6 +59,7 @@ all: chess_tracking/all
 all: ar_tag_tracking/all
 all: ar_track_alvar/ar_track_alvar/all
 all: ik/all
+all: move_arm/all
 all: planning/all
 
 .PHONY : all
@@ -70,6 +71,7 @@ preinstall: chess_tracking/preinstall
 preinstall: ar_tag_tracking/preinstall
 preinstall: ar_track_alvar/ar_track_alvar/preinstall
 preinstall: ik/preinstall
+preinstall: move_arm/preinstall
 preinstall: planning/preinstall
 
 .PHONY : preinstall
@@ -86,6 +88,7 @@ clean: chess_tracking/clean
 clean: ar_tag_tracking/clean
 clean: ar_track_alvar/ar_track_alvar/clean
 clean: ik/clean
+clean: move_arm/clean
 clean: planning/clean
 
 .PHONY : clean
@@ -411,6 +414,24 @@ ik/clean: ik/CMakeFiles/shape_msgs_generate_messages_eus.dir/clean
 ik/clean: ik/CMakeFiles/shape_msgs_generate_messages_lisp.dir/clean
 
 .PHONY : ik/clean
+
+#=============================================================================
+# Directory level rules for directory move_arm
+
+# Recursive "all" directory target.
+move_arm/all:
+
+.PHONY : move_arm/all
+
+# Recursive "preinstall" directory target.
+move_arm/preinstall:
+
+.PHONY : move_arm/preinstall
+
+# Recursive "clean" directory target.
+move_arm/clean:
+
+.PHONY : move_arm/clean
 
 #=============================================================================
 # Directory level rules for directory planning

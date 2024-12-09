@@ -10,7 +10,10 @@ import numpy as np
 from numpy import linalg
 import sys
 
-
+##Test coordinates
+## Pickup @ 0.730 0.302 -0.112 -0.128 0.991 -0.006 -0.022
+## Place @ 0.793 0.032 -0.115 -0.069 0.996 -0.046 -0.014
+# 0.730 0.302 -0.112 -0.128 0.991 -0.006 -0.022 0.793 0.032 -0.115 -0.069 0.996 -0.046 -0.014
 def main():
     # Wait for the IK service to become available
     rospy.wait_for_service('compute_ik')
@@ -28,7 +31,6 @@ def main():
     rospy.sleep(2.0)
 
     while not rospy.is_shutdown():
-        input('Press [ Enter ]: ')
         
         # Construct the request
         request = GetPositionIKRequest()
@@ -50,6 +52,7 @@ def main():
 
         coordinate_array = [float(coord) for coord in coordinates.split(" ")]
         
+        print("split coords")
         #coordinates to pick up piece on board
         request.ik_request.pose_stamped.pose.position.x = coordinate_array[0]
         request.ik_request.pose_stamped.pose.position.y = coordinate_array[1]
@@ -59,6 +62,9 @@ def main():
         request.ik_request.pose_stamped.pose.orientation.z = coordinate_array[5]
         request.ik_request.pose_stamped.pose.orientation.w = coordinate_array[6]
 
+        print(coordinate_array)
+
+        print("got request")
         # Set the desired orientation for the end effector HERE
         
 
@@ -157,7 +163,7 @@ def main():
             request.ik_request.pose_stamped.pose.position.z = 0.382   
             request.ik_request.pose_stamped.pose.orientation.x = coordinate_array[10]
             request.ik_request.pose_stamped.pose.orientation.y = coordinate_array[11]
-            request.ik_request.pose_stamped.pose.orientation.z = 0.001
+            request.ik_rexecute_pose(group, compute_ik, pickup_coords, "base", "right_gripper_tip")equest.pose_stamped.pose.orientation.z = 0.001
             request.ik_request.pose_stamped.pose.orientation.w = -0.013
 
             reponse = compute_ik(request)

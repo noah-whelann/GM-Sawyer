@@ -13,27 +13,30 @@ class TFRepublisher:
 
     def republish(self):
         try:
-            # Look up the transform from the original frame
+            # Look up the transform from the original AR marker frame to /world
             (trans, rot) = self.tf_listener.lookupTransform('/world', self.original_frame, rospy.Time(0))
 
-            # Publish the transform with a new parent frame
+            # Transform the position into the new parent frame
+            (new_trans, new_rot) = self.tf_listener.lookupTransform(self.new_parent_frame, self.original_frame, rospy.Time(0))
+
+            # Republish the transform with the new parent frame
             self.tf_broadcaster.sendTransform(
-                trans,
-                rot,
+                new_trans,
+                new_rot,
                 rospy.Time.now(),
                 self.new_frame,
                 self.new_parent_frame
             )
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            rospy.logwarn(f"Could not find transform from /world to {self.original_frame}")
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
+            rospy.logwarn(f"Could not transform {self.original_frame} to {self.new_parent_frame}: {e}")
 
 def main():
     rospy.init_node('tf_republisher')
 
-    # Parameters for Sawyer camera
+    # Republish sawyer marker relative to /right_hand_camera
     sawyer_republisher = TFRepublisher('ar_marker_0', 'sawyer_marker_0', 'right_hand_camera')
 
-    # Parameters for Logitech camera
+    # Republish logitech marker relative to /logitech_c615
     logitech_republisher = TFRepublisher('ar_marker_0', 'logitech_marker_0', 'logitech_c615')
 
     rate = rospy.Rate(10.0)  # 10 Hz

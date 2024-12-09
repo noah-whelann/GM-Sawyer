@@ -241,6 +241,13 @@
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ik/CMakeFiles/shape_msgs_generate_messages_cpp.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ik/CMakeFiles/shape_msgs_generate_messages_eus.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ik/CMakeFiles/shape_msgs_generate_messages_lisp.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/install/strip.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/install/local.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/install.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/list_install_components.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/rebuild_cache.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/edit_cache.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/test.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/list_install_components.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/rebuild_cache.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/baxter_interface_gencfg.dir

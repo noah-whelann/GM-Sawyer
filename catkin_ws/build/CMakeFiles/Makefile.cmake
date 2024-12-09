@@ -25,6 +25,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "chess_tracking/catkin_generated/package.cmake"
   "ik/catkin_generated/ordered_paths.cmake"
   "ik/catkin_generated/package.cmake"
+  "move_arm/catkin_generated/ordered_paths.cmake"
+  "move_arm/catkin_generated/package.cmake"
   "planning/catkin_generated/ordered_paths.cmake"
   "planning/catkin_generated/package.cmake"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/ar_track_alvar_msgs/cmake/ar_track_alvar_msgs-msg-extras.cmake"
@@ -42,6 +44,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/package.xml"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/ik/CMakeLists.txt"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/ik/package.xml"
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/move_arm/CMakeLists.txt"
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/move_arm/package.xml"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/planning/CMakeLists.txt"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/planning/package.xml"
   "/opt/ros/eecsbot_ws/devel/share/baxter_core_msgs/cmake/baxter_core_msgs-msg-extras.cmake"
@@ -379,6 +383,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "ar_tag_tracking/CMakeFiles/CMakeDirectoryInformation.cmake"
   "ar_track_alvar/ar_track_alvar/CMakeFiles/CMakeDirectoryInformation.cmake"
   "ik/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "move_arm/CMakeFiles/CMakeDirectoryInformation.cmake"
   "planning/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
