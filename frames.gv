@@ -1,0 +1,13 @@
+digraph G {
+"logitech_c615" -> "ar_marker_1"[label="Broadcaster: /ar_track_alvar\nAverage rate: 5.294 Hz\nMost recent transform: 1733446728.262 ( 1.688 sec old)\nBuffer length: 3.400 sec\n"];
+"world" -> "logitech_c615"[label="Broadcaster: /world_to_camera\nAverage rate: 10.199 Hz\nMost recent transform: 1733446729.951 ( -0.002 sec old)\nBuffer length: 4.804 sec\n"];
+"ar_tag_0" -> "chessboard"[label="Broadcaster: /chessboard_transform_broadcaster\nAverage rate: 10.204 Hz\nMost recent transform: 1733446729.907 ( 0.043 sec old)\nBuffer length: 4.900 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1733446729.950"[ shape=plaintext ] ;
+ }->"ar_tag_0";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1733446729.950"[ shape=plaintext ] ;
+ }->"world";
+}
