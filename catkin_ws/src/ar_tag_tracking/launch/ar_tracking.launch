@@ -8,8 +8,4 @@
         args="13 0.08 0.2 /logitech_c615/image_raw /logitech_c615/camera_info /world">
     <remap from="/ar_pose_marker" to="/logitech/ar_pose_marker" />
   </node>
-
-  <!-- TF Renaming Node for Logitech -->
-  <node pkg="tf" type="static_transform_publisher" name="logitech_marker_tf_remap" 
-        args="0 0 0 0 0 0 /ar_marker_1 /logitech_marker_1 100" />
 </launch>
