@@ -4,7 +4,7 @@ from moveit_msgs.srv import GetPositionIK, GetPositionIKRequest, GetPositionIKRe
 from geometry_msgs.msg import PoseStamped
 from moveit_commander import MoveGroupCommander
 
-from intera_interface import gripper as robot_gripper
+from intera_interface import gripper as robot_gripper, Limb 
 
 import numpy as np
 from numpy import linalg
@@ -17,10 +17,12 @@ import sys
 def main():
     # Wait for the IK service to become available
     rospy.wait_for_service('compute_ik')
-    rospy.init_node('service_query')
+    rospy.init_node('service_query') #change name at somepoint
     # Create the function used to call the service
     compute_ik = rospy.ServiceProxy('compute_ik', GetPositionIK)
     link = "right_gripper_tip"
+
+    limb = Limb('right') #used for tuck
 
     # Set up the right gripper
     right_gripper = robot_gripper.Gripper('right_gripper')
