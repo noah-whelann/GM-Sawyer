@@ -161,10 +161,3 @@ draw_matches(board_1, matches_1, "board_1")
 draw_matches(board_2, matches_2, "board_2")
 draw_matches(board_3, matches_3, "board_3")
 draw_matches(board_4, matches_4, "board_4")
-
-
-
-
-# Show the image with matches
-# chessboard_img = cv2.resize(chessboard_img, (720, 1280))
-# plt.imshow("Detected Matches", chessboard_img)
