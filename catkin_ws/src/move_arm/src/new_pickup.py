@@ -13,6 +13,11 @@ from intera_interface import gripper as robot_gripper
 #tuck -> move above the piece to pickup -> lower down to piece & grab it ->
 #  move straight up -> move to new piece location -> then lower down to location -> then tuck -> loop
 #0.484, 0.443, -0.178, 0.0, 1.0, 0.0, 0.0, 0.865, 0.156, -0.178, 0.0, 1.0, 0.0, 0.0
+#0.484, 0.443, -0.007, 0.0, 1.0, 0.0, 0.0, 0.865, 0.156, -0.007, 0.0, 1.0, 0.0, 0.0 #abitrary higher location
+
+#test 2
+#0.594, -0.382, -0.007, 0.0, 1.0, 0.0, 0.0, 0.882, 0.347, -0.007, 0.0, 1.0, 0.0, 0.0
+
 def main():
     #starts node
     rospy.init_node('service_query')
@@ -58,7 +63,7 @@ def main():
 
             # Move piece straight up
             print('Lifting piece...')
-            pickup_coords[2] += 0.5  # Increase Z position to lift the piece
+            pickup_coords[2] += 0.3  # Increase Z position to lift the piece
             execute_pose(group, compute_ik, pickup_coords, "base", "right_gripper_tip")
 
             # Place piece down
@@ -70,7 +75,7 @@ def main():
 
             # Reset upwards
             print('Resetting arm...')
-            place_coords[2] += 0.5  # Increase Z position for reset
+            place_coords[2] += 0.3  # Increase Z position for reset
             execute_pose(group, compute_ik, place_coords, "base", "right_gripper_tip")
             ## Should tuck here instead
 
@@ -112,6 +117,7 @@ def execute_pose(group, compute_ik, coords, frame_id, link_name):
 
     print("Operation stopped by user.")
     return False
+
 
 if __name__ == '__main__':
     main()
