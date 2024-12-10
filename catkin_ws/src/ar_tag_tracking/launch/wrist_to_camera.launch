@@ -1,0 +1,16 @@
+<launch>
+    <!--
+    This example creates a static transform from the frame "world" to "base_link".
+    The arguments are:
+    x y z qx qy qz qw frame_id child_frame_id
+
+    In this case:
+    - Translation: 1.0 (x), 0.0 (y), 0.0 (z)
+    - Rotation:    0.0 (qx), 0.0 (qy), 0.0 (qz), 1.0 (qw) which represents no rotation.
+    - Parent frame: world
+    - Child frame:  base_link
+    -->
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="right_gripper_base_to_logitech_c920" 
+          args="0.05 0.0 0.0 0.0 0.0 0.0 1.0 right_gripper_base logitech_c920" />
+</launch>

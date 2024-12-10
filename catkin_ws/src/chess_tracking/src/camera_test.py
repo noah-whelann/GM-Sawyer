@@ -15,15 +15,22 @@ from geometry_msgs.msg import Point
 
 class CameraTest:
     def __init__(self):
-        rospy.init_node('camera_test', anonymous=True)
+        # rospy.init_node('camera_test', anonymous=True)
 
-        self.web_cam_sub = rospy.Subscriber("/logitech_c615/image_raw", Image, self.image_callback)
+        # self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.image_callback)
 
-        self.image_pub = rospy.Publisher("processed_cam", Image, queue_size=10)
+        # self.image_pub = rospy.Publisher("processed_cam", Image, queue_size=10)
 
         self.coord_pub = rospy.Publisher("corner_coords", Point, queue_size=10)
 
-        print("hi")
+        # print("hi")
+        # rospy.spin()
+
+        rospy.init_node('robot_camera_test', anonymous=True)
+
+        self.subscriber = rospy.Subscriber("/io/internal_camera/right_hand_camera/image_raw", Image, self.test_arm_camera)
+        self.publisher = rospy.Publisher("processed_cam", Image, queue_size=10)
+
         rospy.spin()
     
 
@@ -189,6 +196,44 @@ class CameraTest:
             cv2.putText(image, f"X: {x} Y: {y}", (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
 
         print(x, y)
+
+    def test_arm_camera(self, msg):
+        # distortion_matrix = np.array([-0.436077, 0.251043, 0.001148, -0.000265, -0.097807])
+        # camera_matrix = np.array([616.505981, 0.0, 378.118988, 0.0, 615.140991, 225.830994, 0.0, 0.0, 1.0])
+
+        distortion_matrix = np.array([-0.436077, 0.251043, 0.001148, -0.000265, -0.097807], dtype=np.float32) #for the wrist
+        camera_matrix = np.array([616.505981, 0.0, 378.118988,
+                                0.0, 615.140991, 225.830994,
+                                0.0, 0.0,        1.0], dtype=np.float32).reshape((3, 3))
+
+        bridge = CvBridge()
+
+        cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
+
+        output = cv2.undistort(src=cv_image, cameraMatrix=camera_matrix, distCoeffs=distortion_matrix)
+
+        ret, corners = cv2.findChessboardCorners(output, (7,7),None)
+
+        if ret:
+            corners = corners.squeeze()
+
+            # top left corner
+            corner = corners[16]
+            cv2.circle(output, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+            print(corner)
+
+            coord_point = Point()
+            coord_point.x = corner[0]
+            coord_point.y = corner[1]
+            self.coord_pub.publish(coord_point)
+        else:
+            print("NOT FOUND")
+            corner = [0, 0]
+
+        output_msg = bridge.cv2_to_imgmsg(output, encoding="bgr8")
+
+
+        self.publisher.publish(output_msg)
 
 
 if __name__ == "__main__":
