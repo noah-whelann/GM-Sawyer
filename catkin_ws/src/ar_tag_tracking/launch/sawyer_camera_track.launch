@@ -1,15 +1,7 @@
 <launch>
-  <!-- Static Transform Publisher -->
-  <node pkg="tf" type="static_transform_publisher" name="ar_track_alvar_sawyer_alan" 
-        args="0 0 0 0 0 0 /world /right_hand_camera 100" />
-
-  <!-- AR Track Alvar Node -->
+  <!-- AR Track Alvar Node for Sawyer wrist camera -->
   <node name="ar_track_alvar_sawyer" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen"
-        args="13 0.08 0.2 /io/internal_camera/right_hand_camera/image_raw /io/internal_camera/right_hand_camera/camera_info /world">
+        args="13 0.08 0.2 /io/internal_camera/right_hand_camera/image_raw /io/internal_camera/right_hand_camera/camera_info /right_hand_camera">
     <remap from="/ar_pose_marker" to="/sawyer/ar_pose_marker" />
   </node>
-
-  <!-- TF Renaming Node for Sawyer -->
-  <node pkg="tf" type="static_transform_publisher" name="sawyer_marker_tf_remap" 
-        args="0 0 0 0 0 0 /ar_marker_0 /sawyer_marker_0 100" />
 </launch>
