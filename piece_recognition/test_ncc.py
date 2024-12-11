@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import time
+import concurrent.futures
 
 white_pawn = cv2.imread("./images/pieces/white_pawn.bmp", cv2.IMREAD_GRAYSCALE)
 white_bishop = cv2.imread("./images/pieces/white_bishop.bmp", cv2.IMREAD_GRAYSCALE)
@@ -71,13 +72,14 @@ def rotate_image(image, angle):
     rotated = cv2.warpAffine(image, rotation_matrix, (w, h), flags=cv2.INTER_LINEAR)
     return rotated
 
+
+
 def rotation_invariant_template_matching(image, template, piece, angles, threshold=0.8):
     """
     Perform template matching with rotation invariance.
     """
-    best_matches = []
-    
-    for angle in angles:
+
+    def worker(angle):
         # Rotate the template
         rotated_template = rotate_image(template, angle)
 
@@ -86,17 +88,27 @@ def rotation_invariant_template_matching(image, template, piece, angles, thresho
         (yCoords, xCoords) = np.where(result >= threshold)
         
         # Check if the match is above the threshold
+        matches = []
         for (x, y) in zip(xCoords, yCoords):
-            best_matches.append({
+            matches.append({
                 "location": (x, y),
                 "angle": angle,
                 "score": result[y,x],
                 "piece": piece
             })
+        return matches
+    
+    executor = concurrent.futures.ThreadPoolExecutor(10)
+    futures = [executor.submit(worker, angle) for angle in angles]
+
+    best_matches = []
+    for future in concurrent.futures.as_completed(futures):
+        best_matches.extend(future.result())
+
     
     return best_matches
 
-def find_chess_pieces(image, distance_threshold=15, angles=range(0, 360, 20)):
+def find_chess_pieces(image, distance_threshold=15, angles=range(0, 360, 10)):
     """
     Finds all the chess pieces in an images, identifies them, and returns their location
     """
