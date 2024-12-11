@@ -3,10 +3,10 @@
 import rospy
 import cv2
 import numpy as np
-from cv_bridge import CvBridge
 
-from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point, PointStamped
+
+# Takes in a Point(x, y, z) and returns a PointStamped of that point in terms of the base frame
 
 
 class TransformCoordinateService:
