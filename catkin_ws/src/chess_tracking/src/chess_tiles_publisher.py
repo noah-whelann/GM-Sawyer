@@ -42,6 +42,10 @@ class ChessTileCoordinates:
 
         self.image_pub.publish(processed_img)
 
+        #A1 [0.439, -0.061, -0.156]
+        #H1 [0.835, -0.005, -0.161]
+        #H8 [0.775, 0.391, -0.146]
+        #A8 [0.393, 0.336, -0.136]
 
         # grid_locations = transform_corners(corners)
 
