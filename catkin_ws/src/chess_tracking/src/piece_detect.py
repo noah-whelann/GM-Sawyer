@@ -8,18 +8,18 @@ import concurrent.futures
 import rospy
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
-from chess_tracking.msg import PieceMatches
+from chess_tracking.srv import PieceMatches
 import rospkg
 
 
 class PieceDetect:
     def __init__(self):
         rospy.init_node('robot_piece_detection', anonymous=True)
-
+        self.camera_img = None
         self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.image_callback)
 
         self.image_pub = rospy.Publisher("detected_pieces", Image)
-        self.match_pub = rospy.Publisher("matched_pieces_coordinates", PieceMatches)
+        self.match_pub = rospy.service("match_pieces", PieceMatches, self.piece_callback)
 
         rospack = rospkg.RosPack()
         package_path = rospack.get_path('chess_tracking')  # Replace with your package name
@@ -194,6 +194,9 @@ class PieceDetect:
             msg.y.append(y)
 
         return msg
+
+    def image_callback(self, msg):
+        self.camera_img = msg
 
     def image_callback(self, msg):
         print("callback")
