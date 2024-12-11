@@ -14,6 +14,7 @@ from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
+from chess_tracking.src.transform_coordinates import transform_point_to_base
 
 
 def get_board_state():  # return fen of current board state
@@ -33,21 +34,6 @@ def get_tile_locations():  # returns a list of tuples, each tuple is for a tile,
     return
 
 
-# Returns a Point() in world coordinates
-def get_transformation(pixel_coordinates):
-    rospy.wait_for_service("transform_coordinates_service")
-    try:
-        transform_service = rospy.ServiceProxy("transform_coordinates_service")
-
-        transform_response = transform_service(pixel_coordinates)
-
-        return transform_response
-
-    except:
-        rospy.ServiceException as e:
-        rospy.logerr("Service call failed: %s", e)
-
-    return Error
 
 # Arguments are of type Point() -> doesn't return anything
 
@@ -55,8 +41,8 @@ def get_transformation(pixel_coordinates):
 def pickup_and_place_piece(from_tile, to_tile):
 
     # start_goal and end goal are both of type Point()
-    start_goal = get_transformation(from_tile)
-    end_goal = get_transformation(to_tile)
+    start_goal = transform_point_to_base(from_tile)
+    end_goal = transform_point_to_base(to_tile)
 
     pickup_and_place(start_goal, end_goal)
 
