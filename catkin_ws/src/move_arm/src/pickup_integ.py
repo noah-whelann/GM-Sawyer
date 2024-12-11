@@ -31,7 +31,7 @@ import roslaunch
 fast_v = 0.5 #slowed for auto test
 med_v = 0.6
 slow_v = 0.3    
-def main():
+def pickup_and_place():
     #starts node
     rospy.init_node('service_query')
     rospy.wait_for_service('compute_ik')
