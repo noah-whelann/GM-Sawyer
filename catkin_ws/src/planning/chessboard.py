@@ -33,6 +33,20 @@ class ChessBoard:
                 col_counter += 1
                 print(tile,tile_x,tile_y, piece)
 
+    def initialize_chess_tiles(self):
+        for row in range(0,8):
+            col_counter = 0
+            for col in "ABCDEFGH":
+                currTile = TileObject(0, 0, piece)
+                tile_as_string = f"{col}{row + 1}" #rows are 1-indexed
+                piece = self.starting_tiles[tile_as_string] if self.starting_tiles.get(tile_as_string) else "" #if the tile has a starting piece assign it
+                
+                self.chess_tiles[tile_as_string] = currTile
+                col_counter += 1
+
+                print(tile,tile_x,tile_y, piece)
+        
+
 
 
 # board = ChessBoard()
