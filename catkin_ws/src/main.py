@@ -10,6 +10,7 @@
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
 from csv import Error
+import numpy as np
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
 import rospy
@@ -19,8 +20,10 @@ import rospkg
 import requests
 # from chess_tracking.src.transform_coordinates import transform_point_to_base
 from chess_tracking.srv import BoardString
+from chess_tracking.srv import PieceMatches
 
 rospy.wait_for_service("board_service")
+rospy.wait_for_service("match_pieces")
 
 
 def get_next_move(fen):
@@ -37,8 +40,13 @@ def get_piece_location_on_tile(tile: str):
     return
 
 
-def get_piece_locations():  # returns a mapping from
-    return
+def get_piece_locations(board: ChessBoard):  # returns a mapping from
+    call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
+    matches = call_piece_service()
+    for tile in board.chess_tiles:
+        for i in len(matches.x):
+            if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50) :
+                tile.piece = matches.name[i]
 
 
 # returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
@@ -92,8 +100,8 @@ def main():
     # stockfish = Stockfish(stockfish_path)  # init Stockfish
     # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
-    tiles = get_tile_locations()
-    pieces = get_piece_locations()
+    tiles = get_tile_locations(board)
+    pieces = get_piece_locations(board)
     board.create_board(tiles, pieces)
 
     drop_off = (0.722, -0.013)  # piece drop off spot (after taking)
