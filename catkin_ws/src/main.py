@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ## CHECKLIST BEFORE RUNNING DEMO ##
 # RVIZ Open (?)
 # Intera server running
@@ -15,12 +16,16 @@ import rospy
 from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
 import rospkg
-from chess_tracking.src.transform_coordinates import transform_point_to_base
+import requests
+# from chess_tracking.src.transform_coordinates import transform_point_to_base
 
 
+def get_next_move(fen):
+    header = {fen}
+    r = requests.post("https://chess-api.com/v1", json=header)
+    return r.text #modify so it only returns the next move
 def get_board_state():  # return fen of current board state
     return
-
 
 # should return a Point() in terms of pixels
 def get_piece_location_on_tile(tile: str):
@@ -53,12 +58,13 @@ def main():
 
     rospy.init_node("main_node", anonymous=True)
 
-    rospack = rospkg.RosPack()
-    package_path = rospack.get_path('chess_tracking')  # Replace with your package name
+    # rospack = rospkg.RosPack()
+    # package_path = rospack.get_path('chess_tracking')  # Replace with your package name
 
-    stockfish_path = package_path + "/src/stockfish-ubuntu-x86-64-vnni512"
-    stockfish = Stockfish(stockfish_path)  # init Stockfish
-    stockfish.set_skill_level(5)
+    # stockfish_path = package_path + "/src/stockfish-ubuntu-x86-64-vnni512"
+    # print(stockfish_path)
+    # stockfish = Stockfish(stockfish_path)  # init Stockfish
+    # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
     tiles = get_tile_locations()
     pieces = get_piece_locations()
@@ -68,10 +74,9 @@ def main():
 
     gaming = True
     while gaming:
-        stockfish.set_fen(get_board_state())  # grab current board state
-        next_move = stockfish.get_best_move()  # e2e4
+        next_move = get_next_move(get_board_state()) #passes FEN of board state into stockfish, gets next move
         capture = False
-        if next_move is None or stockfish.is_game_over():
+        if next_move is None: #probably needs a better game state
             gaming = False
             break
 
