@@ -9,7 +9,6 @@
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
 from csv import Error
-from catkin_ws.src.chess_tracking.src import transform_coordinates_service
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
 import rospy
@@ -22,7 +21,7 @@ def get_board_state():  # return fen of current board state
 
 
 # should return a Point() in terms of pixels
-def get_piece_location_on_tile(tile):
+def get_piece_location_on_tile(tile: str):
     return
 
 
@@ -34,6 +33,7 @@ def get_tile_locations():  # returns a list of tuples, each tuple is for a tile,
     return
 
 
+# Returns a Point() in world coordinates
 def get_transformation(pixel_coordinates):
     rospy.wait_for_service("transform_coordinates_service")
     try:
@@ -49,9 +49,12 @@ def get_transformation(pixel_coordinates):
 
     return Error
 
+# Arguments are of type Point() -> doesn't return anything
+
 
 def pickup_and_place_piece(from_tile, to_tile):
 
+    # start_goal and end goal are both of type Point()
     start_goal = get_transformation(from_tile)
     end_goal = get_transformation(to_tile)
 
@@ -71,12 +74,14 @@ def main():
     tiles = get_tile_locations()
     pieces = get_piece_locations()
     board.create_board(tiles, pieces)
+    
+    drop_off = (0.722, -0.013) #piece drop off spot (after taking)
 
     gaming = True
     while gaming:
         stockfish.set_fen(get_board_state())  # grab current board state
         next_move = stockfish.get_best_move()  # e2e4
-
+        capture = False
         if next_move is None or stockfish.is_game_over():
             gaming = False
             break
@@ -85,16 +90,22 @@ def main():
         place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
-        # accesses board hashmap and grabs tile xy
-        place_tile_coords = (
-            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
-
-        # should be one fluid motion
-        pickup_and_place_piece(pickup_tile_coords, place_tile_coords)
-        # robot then tucks after its move (automatically handled in new_pickup.py)
+        place_tile_coords = (board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y) #accesses board hashmap and grabs tile xy
+        
+        if board.chess[place_tile].piece is not None: #Taking a piece
+            capture = True
+            pickup_and_place(place_tile_coords, drop_off, capture) #move piece off board
+            rospy.sleep(1.0)
+            capture = False
+        pickup_and_place(pickup_tile_coords, place_tile_coords, capture) # should be one fluid motion
+        # robot then tucks after its move (automatically handled in pickup_integ.py)
 
         # wait for user to execute move
         input("Press enter when you have moved the piece")
+        
+if __name__ == '__main__':
+    main()
+
 
 # example main loop:
 # convert board state to fen
