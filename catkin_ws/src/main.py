@@ -9,7 +9,6 @@
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
 from csv import Error
-from catkin_ws.src.chess_tracking.src import transform_coordinates_service
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
 import rospy
@@ -22,7 +21,7 @@ def get_board_state():  # return fen of current board state
 
 
 # should return a Point() in terms of pixels
-def get_piece_location_on_tile(tile):
+def get_piece_location_on_tile(tile: str):
     return
 
 
@@ -34,6 +33,7 @@ def get_tile_locations():  # returns a list of tuples, each tuple is for a tile,
     return
 
 
+# Returns a Point() in world coordinates
 def get_transformation(pixel_coordinates):
     rospy.wait_for_service("transform_coordinates_service")
     try:
@@ -49,9 +49,12 @@ def get_transformation(pixel_coordinates):
 
     return Error
 
+# Arguments are of type Point() -> doesn't return anything
+
 
 def pickup_and_place_piece(from_tile, to_tile):
 
+    # start_goal and end goal are both of type Point()
     start_goal = get_transformation(from_tile)
     end_goal = get_transformation(to_tile)
 
