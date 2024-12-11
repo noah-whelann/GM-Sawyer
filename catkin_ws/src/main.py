@@ -1,14 +1,14 @@
 ## CHECKLIST BEFORE RUNNING DEMO ##
-## RVIZ Open (?)
-## Intera server running
-## Camera screwed, wires ziptied or not in the way
-## Validate Z position is correct (in case of shifted table)
-
+# RVIZ Open (?)
+# Intera server running
+# Camera screwed, wires ziptied or not in the way
+# Validate Z position is correct (in case of shifted table)
 
 
 # Step 1:
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
+from csv import Error
 from catkin_ws.src.chess_tracking.src import transform_coordinates_service
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
@@ -33,22 +33,29 @@ def get_piece_locations():  # returns a mapping from
 def get_tile_locations():  # returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
     return
 
-def pickup_and_place_piece(from_tile, to_tile):
 
+def get_transformation(pixel_coordinates):
     rospy.wait_for_service("transform_coordinates_service")
     try:
         transform_service = rospy.ServiceProxy("transform_coordinates_service")
 
-        transform_response = transform_service(move_location)
+        transform_response = transform_service(pixel_coordinates)
 
-        move_arm_function(transform_response)  # sends in a PointStamped type
+        return transform_response
 
     except:
         rospy.ServiceException as e:
         rospy.logerr("Service call failed: %s", e)
-    # send over the world coordinates to move_arm function
-    # that handles all the ik and planning
-    return
+
+    return Error
+
+
+def pickup_and_place_piece(from_tile, to_tile):
+
+    start_goal = get_transformation(from_tile)
+    end_goal = get_transformation(to_tile)
+
+    pickup_and_place(start_goal, end_goal)
 
     return
 
@@ -78,9 +85,12 @@ def main():
         place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
-        place_tile_coords = (board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y) #accesses board hashmap and grabs tile xy
+        # accesses board hashmap and grabs tile xy
+        place_tile_coords = (
+            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
 
-        pickup_and_place_piece(pickup_tile_coords, place_tile_coords) # should be one fluid motion
+        # should be one fluid motion
+        pickup_and_place_piece(pickup_tile_coords, place_tile_coords)
         # robot then tucks after its move (automatically handled in new_pickup.py)
 
         # wait for user to execute move
