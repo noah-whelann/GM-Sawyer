@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ## CHECKLIST BEFORE RUNNING DEMO ##
 # RVIZ Open (?)
 # Intera server running
@@ -14,13 +15,24 @@ from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
+import rospkg
+import requests
+# from chess_tracking.src.transform_coordinates import transform_point_to_base
+from chess_tracking.srv import BoardString
+
+rospy.wait_for_service("board_service")
 
 
+def get_next_move(fen):
+    header = {fen}
+    r = requests.post("https://chess-api.com/v1", json=header)
+    return r.text #modify so it only returns the next move
 def get_board_state():  # return fen of current board state
     return
 
-
 # should return a Point() in terms of pixels
+
+
 def get_piece_location_on_tile(tile: str):
     return
 
@@ -29,25 +41,30 @@ def get_piece_locations():  # returns a mapping from
     return
 
 
-def get_tile_locations():  # returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
+# returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
+def get_tile_locations(board: ChessBoard):
+    call_board_service = rospy.ServiceProxy("board_service", BoardString)
+
+    resp = call_board_service()
+
+    dictionary_mapping = json.loads(resp)
+
+    # looks like: {"A1" : [(0, 0), (2, 2)]}
+    for currTile in dictionary_mapping:
+
+        bottom_left_corner = dictionary_mapping[currTile][0]
+
+        top_right_corner = dictionary_mapping[currTile][1]
+
+        center_x_coord = (bottom_left_corner[0] + top_right_corner[0]) / 2
+
+        center_y_coord = (bottom_left_corner[1] + top_right_corner[1]) / 2
+
+        board.chess_tiles[currTile].x = center_x_coord
+        board.chess_tiles[currTile].y = center_y_coord
+
     return
 
-
-# Returns a Point() in world coordinates
-def get_transformation(pixel_coordinates):
-    rospy.wait_for_service("transform_coordinates_service")
-    try:
-        transform_service = rospy.ServiceProxy("transform_coordinates_service")
-
-        transform_response = transform_service(pixel_coordinates)
-
-        return transform_response
-
-    except:
-        rospy.ServiceException as e:
-        rospy.logerr("Service call failed: %s", e)
-
-    return Error
 
 # Arguments are of type Point() -> doesn't return anything
 
@@ -55,8 +72,8 @@ def get_transformation(pixel_coordinates):
 def pickup_and_place_piece(from_tile, to_tile):
 
     # start_goal and end goal are both of type Point()
-    start_goal = get_transformation(from_tile)
-    end_goal = get_transformation(to_tile)
+    start_goal = transform_point_to_base(from_tile)
+    end_goal = transform_point_to_base(to_tile)
 
     pickup_and_place(start_goal, end_goal)
 
@@ -67,22 +84,25 @@ def main():
 
     rospy.init_node("main_node", anonymous=True)
 
-    stockfish_path = ".."
-    stockfish = Stockfish(stockfish_path)  # init Stockfish
-    stockfish.set_skill_level(5)
+    # rospack = rospkg.RosPack()
+    # package_path = rospack.get_path('chess_tracking')  # Replace with your package name
+
+    # stockfish_path = package_path + "/src/stockfish-ubuntu-x86-64-vnni512"
+    # print(stockfish_path)
+    # stockfish = Stockfish(stockfish_path)  # init Stockfish
+    # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
     tiles = get_tile_locations()
     pieces = get_piece_locations()
     board.create_board(tiles, pieces)
-    
-    drop_off = (0.722, -0.013) #piece drop off spot (after taking)
+
+    drop_off = (0.722, -0.013)  # piece drop off spot (after taking)
 
     gaming = True
     while gaming:
-        stockfish.set_fen(get_board_state())  # grab current board state
-        next_move = stockfish.get_best_move()  # e2e4
+        next_move = get_next_move(get_board_state()) #passes FEN of board state into stockfish, gets next move
         capture = False
-        if next_move is None or stockfish.is_game_over():
+        if next_move is None: #probably needs a better game state
             gaming = False
             break
 
@@ -90,19 +110,24 @@ def main():
         place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
-        place_tile_coords = (board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y) #accesses board hashmap and grabs tile xy
-        
-        if board.chess[place_tile].piece is not None: #Taking a piece
+        # accesses board hashmap and grabs tile xy
+        place_tile_coords = (
+            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
+
+        if board.chess[place_tile].piece is not None:  # Taking a piece
             capture = True
-            pickup_and_place(place_tile_coords, drop_off, capture) #move piece off board
+            pickup_and_place(place_tile_coords, drop_off,
+                             capture)  # move piece off board
             rospy.sleep(1.0)
             capture = False
-        pickup_and_place(pickup_tile_coords, place_tile_coords, capture) # should be one fluid motion
+        pickup_and_place(pickup_tile_coords, place_tile_coords,
+                         capture)  # should be one fluid motion
         # robot then tucks after its move (automatically handled in pickup_integ.py)
 
         # wait for user to execute move
         input("Press enter when you have moved the piece")
-        
+
+
 if __name__ == '__main__':
     main()
 

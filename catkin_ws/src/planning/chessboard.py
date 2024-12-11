@@ -8,9 +8,7 @@ class TileObject:
 
 class ChessBoard:
 
-    def init(self) -> None:
-        self.origin_offset_x = x #Distance from AR tag to (0,0) point on chessboard (a1)
-        self.origin_offset_y = y
+    def __init__(self) -> None:
         self.chess_tiles = {}
         self.starting_tiles = {
             # White pieces
@@ -28,15 +26,29 @@ class ChessBoard:
             col_counter = 0
             for col in "ABCDEFGH":
                 tile = f"{col}{row + 1}" #rows are 1-indexed
-                tile_x = round(col_counter * 5.715 + self.origin_offset_x, 3) #using offsets of 5.715 (tile size). Each coordinate is represents the center of the tile
-                tile_y = round(row * 5.715 + self.origin_offset_y, 3) #rounded to 3 decimal digits
+                tile_x = round(col_counter, 3) #using offsets of 5.715 (tile size). Each coordinate is represents the center of the tile
+                tile_y = round(row, 3) #rounded to 3 decimal digits
                 piece = self.starting_tiles[tile] if self.starting_tiles.get(tile) else "" #if the tile has a starting piece assign it
                 self.chess_tiles[tile] = TileObject(tile_x, tile_y, piece)
                 col_counter += 1
                 print(tile,tile_x,tile_y, piece)
 
+    def initialize_chess_tiles(self):
+        for row in range(0,8):
+            col_counter = 0
+            for col in "ABCDEFGH":
+                currTile = TileObject(0, 0, piece)
+                tile_as_string = f"{col}{row + 1}" #rows are 1-indexed
+                piece = self.starting_tiles[tile_as_string] if self.starting_tiles.get(tile_as_string) else "" #if the tile has a starting piece assign it
+                
+                self.chess_tiles[tile_as_string] = currTile
+                col_counter += 1
+
+                print(tile,tile_x,tile_y, piece)
+        
 
 
-board = ChessBoard()
 
-board.create_board()
+# board = ChessBoard()
+
+# board.create_board()
