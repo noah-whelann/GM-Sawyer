@@ -27,6 +27,7 @@ import roslaunch
 #test 3 (kill pawn w queen)
 #pawn move: 0.699, 0.289, 0.722, -0.013 
 #queen move 0.682, 0.521, 0.699, 0.289 
+
 fast_v = 0.5 #slowed for auto test
 med_v = 0.6
 slow_v = 0.3    
