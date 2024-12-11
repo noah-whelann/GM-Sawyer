@@ -29,6 +29,11 @@ def move_robot(move_location):  # transform pixel coordinates to world coordinat
     # that handles all the ik and planning
     return
 
+def pickup_and_place_piece(from_tile, to_tile):
+    return
+
+
+
 
 def main():
     stockfish_path = ".."
@@ -42,20 +47,23 @@ def main():
     gaming = True
     while gaming:
         stockfish.set_fen(get_board_state())  # grab current board state
-        next_move = str(stockfish.get_best_move())  # e2e4
+        next_move = stockfish.get_best_move()  # e2e4
+
+        if next_move is None:
+            gaming = False
+            break
 
         pickup_tile = next_move[0:2]  # e2
-        place_tile = next_move[2:]  # 4
+        place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
         place_tile_coords = tuple(place_tile.x, place_tile.y)
 
-        move_robot(pickup_tile_coords)
+        pickup_and_place_piece(pickup_tile_coords, place_tile_coords) # should be one fluid motion
         # robot then tucks after its move
 
         # wait for user to execute move
         input("Press enter when you have moved the piece")
-
 
 # example main loop:
 # convert board state to fen
