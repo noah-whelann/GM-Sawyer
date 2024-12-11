@@ -8,7 +8,7 @@ class TileObject:
 
 class ChessBoard:
 
-    def init(self) -> None:
+    def __init__(self) -> None:
         self.chess_tiles = {}
         self.starting_tiles = {
             # White pieces
@@ -26,8 +26,8 @@ class ChessBoard:
             col_counter = 0
             for col in "ABCDEFGH":
                 tile = f"{col}{row + 1}" #rows are 1-indexed
-                tile_x = round(col_counter * 5.715 + self.origin_offset_x, 3) #using offsets of 5.715 (tile size). Each coordinate is represents the center of the tile
-                tile_y = round(row * 5.715 + self.origin_offset_y, 3) #rounded to 3 decimal digits
+                tile_x = round(col_counter, 3) #using offsets of 5.715 (tile size). Each coordinate is represents the center of the tile
+                tile_y = round(row, 3) #rounded to 3 decimal digits
                 piece = self.starting_tiles[tile] if self.starting_tiles.get(tile) else "" #if the tile has a starting piece assign it
                 self.chess_tiles[tile] = TileObject(tile_x, tile_y, piece)
                 col_counter += 1
@@ -35,6 +35,6 @@ class ChessBoard:
 
 
 
-board = ChessBoard()
+# board = ChessBoard()
 
-board.create_board()
+# board.create_board()
