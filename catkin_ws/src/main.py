@@ -1,16 +1,24 @@
+## CHECKLIST BEFORE RUNNING DEMO ##
+## RVIZ Open (?)
+## Intera server running
+## Camera screwed, wires ziptied or not in the way
+## Validate Z position is correct (in case of shifted table)
+
+
 
 # Step 1:
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
+from move_arm.pickup_integ import 
 
 
 def get_board_state():  # return fen of current board state
     return
 
 
-def get_piece_location_on_tile(tile):
+def get_piece_location_on_tile(tile): #returns tuple of piece xy
     return
 
 
@@ -49,7 +57,7 @@ def main():
         stockfish.set_fen(get_board_state())  # grab current board state
         next_move = stockfish.get_best_move()  # e2e4
 
-        if next_move is None:
+        if next_move is None or stockfish.is_game_over():
             gaming = False
             break
 
@@ -57,10 +65,10 @@ def main():
         place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
-        place_tile_coords = tuple(place_tile.x, place_tile.y)
+        place_tile_coords = (board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y) #accesses board hashmap and grabs tile xy
 
         pickup_and_place_piece(pickup_tile_coords, place_tile_coords) # should be one fluid motion
-        # robot then tucks after its move
+        # robot then tucks after its move (automatically handled in new_pickup.py)
 
         # wait for user to execute move
         input("Press enter when you have moved the piece")
