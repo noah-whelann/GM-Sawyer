@@ -68,6 +68,38 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -91,38 +123,6 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target test
 test:
@@ -168,19 +168,184 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/rule
+chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule
 
 # Convenience name for target.
-_catkin_empty_exported_target: chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/rule
+chess_tracking_generate_messages: chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule
 
-.PHONY : _catkin_empty_exported_target
+.PHONY : chess_tracking_generate_messages
 
 # fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/build.make chess_tracking/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
+chess_tracking_generate_messages/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/build
+.PHONY : chess_tracking_generate_messages/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule
+
+# Convenience name for target.
+chess_tracking_genlisp: chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule
+
+.PHONY : chess_tracking_genlisp
+
+# fast build rule for target.
+chess_tracking_genlisp/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/build
+.PHONY : chess_tracking_genlisp/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/rule
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/rule
+
+# Convenience name for target.
+_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/rule
+
+.PHONY : _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid
+
+# fast build rule for target.
+_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/build
+.PHONY : _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+chess_tracking_generate_messages_eus: chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
+
+.PHONY : chess_tracking_generate_messages_eus
+
+# fast build rule for target.
+chess_tracking_generate_messages_eus/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build
+.PHONY : chess_tracking_generate_messages_eus/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule
+
+# Convenience name for target.
+chess_tracking_geneus: chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule
+
+.PHONY : chess_tracking_geneus
+
+# fast build rule for target.
+chess_tracking_geneus/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_geneus.dir/build.make chess_tracking/CMakeFiles/chess_tracking_geneus.dir/build
+.PHONY : chess_tracking_geneus/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+chess_tracking_generate_messages_lisp: chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule
+
+.PHONY : chess_tracking_generate_messages_lisp
+
+# fast build rule for target.
+chess_tracking_generate_messages_lisp/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/build
+.PHONY : chess_tracking_generate_messages_lisp/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule
+
+# Convenience name for target.
+chess_tracking_gennodejs: chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule
+
+.PHONY : chess_tracking_gennodejs
+
+# fast build rule for target.
+chess_tracking_gennodejs/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/build.make chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/build
+.PHONY : chess_tracking_gennodejs/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+# Convenience name for target.
+chess_tracking_genpy: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+.PHONY : chess_tracking_genpy
+
+# fast build rule for target.
+chess_tracking_genpy/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build
+.PHONY : chess_tracking_genpy/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+chess_tracking_generate_messages_nodejs: chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule
+
+.PHONY : chess_tracking_generate_messages_nodejs
+
+# fast build rule for target.
+chess_tracking_generate_messages_nodejs/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build
+.PHONY : chess_tracking_generate_messages_nodejs/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule
+
+# Convenience name for target.
+chess_tracking_gencpp: chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule
+
+.PHONY : chess_tracking_gencpp
+
+# fast build rule for target.
+chess_tracking_gencpp/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/build
+.PHONY : chess_tracking_gencpp/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+chess_tracking_generate_messages_cpp: chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule
+
+.PHONY : chess_tracking_generate_messages_cpp
+
+# fast build rule for target.
+chess_tracking_generate_messages_cpp/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build
+.PHONY : chess_tracking_generate_messages_cpp/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule
+
+# Convenience name for target.
+chess_tracking_generate_messages_py: chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule
+
+.PHONY : chess_tracking_generate_messages_py
+
+# fast build rule for target.
+chess_tracking_generate_messages_py/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build
+.PHONY : chess_tracking_generate_messages_py/fast
 
 # Help Target
 help:
@@ -189,13 +354,24 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install/local"
-	@echo "... install"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... list_install_components"
+	@echo "... chess_tracking_generate_messages"
+	@echo "... install/local"
+	@echo "... chess_tracking_genlisp"
+	@echo "... install"
+	@echo "... _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid"
+	@echo "... chess_tracking_generate_messages_eus"
+	@echo "... chess_tracking_geneus"
+	@echo "... chess_tracking_generate_messages_lisp"
+	@echo "... chess_tracking_gennodejs"
+	@echo "... chess_tracking_genpy"
+	@echo "... chess_tracking_generate_messages_nodejs"
+	@echo "... chess_tracking_gencpp"
+	@echo "... chess_tracking_generate_messages_cpp"
+	@echo "... chess_tracking_generate_messages_py"
 	@echo "... test"
-	@echo "... _catkin_empty_exported_target"
 .PHONY : help
 
 
