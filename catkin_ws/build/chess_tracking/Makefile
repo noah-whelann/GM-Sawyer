@@ -90,6 +90,17 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -124,17 +135,6 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # The main all target
 all: cmake_check_build_system
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking/CMakeFiles/progress.marks
@@ -166,6 +166,21 @@ preinstall/fast:
 depend:
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+# Convenience name for target.
+chess_tracking_genpy: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+.PHONY : chess_tracking_genpy
+
+# fast build rule for target.
+chess_tracking_genpy/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build
+.PHONY : chess_tracking_genpy/fast
 
 # Convenience name for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule:
@@ -213,6 +228,21 @@ _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid/fast:
 .PHONY : _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid/fast
 
 # Convenience name for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule
+
+# Convenience name for target.
+_chess_tracking_generate_messages_check_deps_BoardString: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule
+
+.PHONY : _chess_tracking_generate_messages_check_deps_BoardString
+
+# fast build rule for target.
+_chess_tracking_generate_messages_check_deps_BoardString/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build
+.PHONY : _chess_tracking_generate_messages_check_deps_BoardString/fast
+
+# Convenience name for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule:
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
@@ -226,6 +256,21 @@ chess_tracking_generate_messages_eus: chess_tracking/CMakeFiles/chess_tracking_g
 chess_tracking_generate_messages_eus/fast:
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build
 .PHONY : chess_tracking_generate_messages_eus/fast
+
+# Convenience name for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule
+
+# Convenience name for target.
+_chess_tracking_generate_messages_check_deps_TransformPoint: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule
+
+.PHONY : _chess_tracking_generate_messages_check_deps_TransformPoint
+
+# fast build rule for target.
+_chess_tracking_generate_messages_check_deps_TransformPoint/fast:
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build
+.PHONY : _chess_tracking_generate_messages_check_deps_TransformPoint/fast
 
 # Convenience name for target.
 chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule:
@@ -271,21 +316,6 @@ chess_tracking_gennodejs: chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir
 chess_tracking_gennodejs/fast:
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/build.make chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/build
 .PHONY : chess_tracking_gennodejs/fast
-
-# Convenience name for target.
-chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule:
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
-.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
-
-# Convenience name for target.
-chess_tracking_genpy: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
-
-.PHONY : chess_tracking_genpy
-
-# fast build rule for target.
-chess_tracking_genpy/fast:
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build && $(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build
-.PHONY : chess_tracking_genpy/fast
 
 # Convenience name for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule:
@@ -356,22 +386,24 @@ help:
 	@echo "... install/strip"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... chess_tracking_genpy"
 	@echo "... list_install_components"
 	@echo "... chess_tracking_generate_messages"
 	@echo "... install/local"
 	@echo "... chess_tracking_genlisp"
 	@echo "... install"
 	@echo "... _chess_tracking_generate_messages_check_deps_StringAndFloatsGrid"
+	@echo "... _chess_tracking_generate_messages_check_deps_BoardString"
 	@echo "... chess_tracking_generate_messages_eus"
+	@echo "... _chess_tracking_generate_messages_check_deps_TransformPoint"
 	@echo "... chess_tracking_geneus"
 	@echo "... chess_tracking_generate_messages_lisp"
 	@echo "... chess_tracking_gennodejs"
-	@echo "... chess_tracking_genpy"
 	@echo "... chess_tracking_generate_messages_nodejs"
 	@echo "... chess_tracking_gencpp"
 	@echo "... chess_tracking_generate_messages_cpp"
 	@echo "... chess_tracking_generate_messages_py"
-	@echo "... test"
 .PHONY : help
 
 

@@ -54,20 +54,35 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/bui
 include chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/progress.make
 
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg/StringAndFloatsGrid.l
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/BoardString.l
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/manifest.l
 
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg/StringAndFloatsGrid.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg/StringAndFloatsGrid.l: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from chess_tracking/StringAndFloatsGrid.msg"
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/BoardString.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/BoardString.l: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from chess_tracking/BoardString.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from chess_tracking/TransformPoint.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for chess_tracking"
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking chess_tracking std_msgs
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for chess_tracking"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking chess_tracking geometry_msgs std_msgs
 
 chess_tracking_generate_messages_eus: chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus
 chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg/StringAndFloatsGrid.l
+chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/BoardString.l
+chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l
 chess_tracking_generate_messages_eus: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/manifest.l
 chess_tracking_generate_messages_eus: chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build.make
 

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/manifest.l"
   "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/msg/StringAndFloatsGrid.l"
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/BoardString.l"
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/roseus/ros/chess_tracking/srv/TransformPoint.l"
   "CMakeFiles/chess_tracking_generate_messages_eus"
 )
 

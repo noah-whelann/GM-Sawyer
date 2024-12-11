@@ -54,15 +54,30 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/bui
 include chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/progress.make
 
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg/StringAndFloatsGrid.js
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/BoardString.js
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/TransformPoint.js
 
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg/StringAndFloatsGrid.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg/StringAndFloatsGrid.js: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from chess_tracking/StringAndFloatsGrid.msg"
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/BoardString.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/BoardString.js: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from chess_tracking/BoardString.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/TransformPoint.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/TransformPoint.js: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/TransformPoint.js: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from chess_tracking/TransformPoint.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv
 
 chess_tracking_generate_messages_nodejs: chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs
 chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/msg/StringAndFloatsGrid.js
+chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/BoardString.js
+chess_tracking_generate_messages_nodejs: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/share/gennodejs/ros/chess_tracking/srv/TransformPoint.js
 chess_tracking_generate_messages_nodejs: chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build.make
 
 .PHONY : chess_tracking_generate_messages_nodejs

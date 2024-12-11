@@ -54,22 +54,48 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/bui
 include chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/progress.make
 
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py
 
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG chess_tracking/StringAndFloatsGrid"
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV chess_tracking/BoardString"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV chess_tracking/TransformPoint"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for chess_tracking"
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python msg __init__.py for chess_tracking"
 	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg --initpy
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python srv __init__.py for chess_tracking"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv --initpy
 
 chess_tracking_generate_messages_py: chess_tracking/CMakeFiles/chess_tracking_generate_messages_py
 chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/_StringAndFloatsGrid.py
+chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_BoardString.py
+chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/_TransformPoint.py
 chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/msg/__init__.py
+chess_tracking_generate_messages_py: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/lib/python3/dist-packages/chess_tracking/srv/__init__.py
 chess_tracking_generate_messages_py: chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build.make
 
 .PHONY : chess_tracking_generate_messages_py

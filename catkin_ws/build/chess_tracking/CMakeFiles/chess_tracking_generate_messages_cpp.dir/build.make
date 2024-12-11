@@ -54,16 +54,35 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/bui
 include chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/progress.make
 
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/StringAndFloatsGrid.h
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h
 
 
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/StringAndFloatsGrid.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/StringAndFloatsGrid.h: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/StringAndFloatsGrid.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from chess_tracking/StringAndFloatsGrid.msg"
-	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking && /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking -e /opt/ros/noetic/share/gencpp/cmake/..
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking && /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg/StringAndFloatsGrid.msg -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking -e /opt/ros/noetic/share/gencpp/cmake/..
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h: /opt/ros/noetic/share/gencpp/msg.h.template
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h: /opt/ros/noetic/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from chess_tracking/BoardString.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking && /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking -e /opt/ros/noetic/share/gencpp/cmake/..
+
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h: /opt/ros/noetic/share/gencpp/msg.h.template
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h: /opt/ros/noetic/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from chess_tracking/TransformPoint.srv"
+	cd /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking && /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv -Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p chess_tracking -o /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking -e /opt/ros/noetic/share/gencpp/cmake/..
 
 chess_tracking_generate_messages_cpp: chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp
 chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/StringAndFloatsGrid.h
+chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/BoardString.h
+chess_tracking_generate_messages_cpp: /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel/include/chess_tracking/TransformPoint.h
 chess_tracking_generate_messages_cpp: chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build.make
 
 .PHONY : chess_tracking_generate_messages_cpp

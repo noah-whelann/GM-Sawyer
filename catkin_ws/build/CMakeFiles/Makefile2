@@ -296,14 +296,16 @@ chess_tracking/preinstall:
 .PHONY : chess_tracking/preinstall
 
 # Recursive "clean" directory target.
+chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/clean
+chess_tracking/clean: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/clean
+chess_tracking/clean: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_geneus.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/clean
-chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/clean
 chess_tracking/clean: chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/clean
@@ -615,7 +617,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googlemock/CMakeFiles/gmoc
 gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=59,60 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=70,71 "Built target gmock_main"
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -642,7 +644,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/clean:
 gtest/googlemock/CMakeFiles/gmock.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=57,58 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=68,69 "Built target gmock"
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -669,7 +671,7 @@ gtest/googlemock/CMakeFiles/gmock.dir/clean:
 gtest/googletest/CMakeFiles/gtest_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=63,64 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=74,75 "Built target gtest_main"
 .PHONY : gtest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -696,7 +698,7 @@ gtest/googletest/CMakeFiles/gtest_main.dir/clean:
 gtest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=61,62 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=72,73 "Built target gtest"
 .PHONY : gtest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1357,6 +1359,33 @@ ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/ar_track_alvar_msgs_gennodejs.dir/
 .PHONY : ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/ar_track_alvar_msgs_gennodejs.dir/clean
 
 #=============================================================================
+# Target rules for target chess_tracking/CMakeFiles/chess_tracking_genpy.dir
+
+# All Build rule for target.
+chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all: chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all
+	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/depend
+	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num= "Built target chess_tracking_genpy"
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all
+
+# Build rule for subdir invocation for target.
+chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+# Convenience name for target.
+chess_tracking_genpy: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
+
+.PHONY : chess_tracking_genpy
+
+# clean rule for target.
+chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean:
+	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
+.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
+
+#=============================================================================
 # Target rules for target chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir
 
 # All Build rule for target.
@@ -1372,7 +1401,7 @@ chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/all: chess_tracki
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 18
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages.dir/rule
@@ -1399,7 +1428,7 @@ chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/all: chess_tracking/CMakeFi
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_genlisp.dir/rule
@@ -1442,19 +1471,49 @@ chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAnd
 .PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/clean
 
 #=============================================================================
+# Target rules for target chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir
+
+# All Build rule for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all:
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/depend
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num= "Built target _chess_tracking_generate_messages_check_deps_BoardString"
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+
+# Build rule for subdir invocation for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule
+
+# Convenience name for target.
+_chess_tracking_generate_messages_check_deps_BoardString: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/rule
+
+.PHONY : _chess_tracking_generate_messages_check_deps_BoardString
+
+# clean rule for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/clean:
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/clean
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/clean
+
+#=============================================================================
 # Target rules for target chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir
 
 # All Build rule for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/depend
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=45,46 "Built target chess_tracking_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=47,48,49,50 "Built target chess_tracking_generate_messages_eus"
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/rule
@@ -1470,6 +1529,33 @@ chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/clean:
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_eus.dir/clean
 
 #=============================================================================
+# Target rules for target chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir
+
+# All Build rule for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all:
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/depend
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num= "Built target _chess_tracking_generate_messages_check_deps_TransformPoint"
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
+
+# Build rule for subdir invocation for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule
+
+# Convenience name for target.
+_chess_tracking_generate_messages_check_deps_TransformPoint: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/rule
+
+.PHONY : _chess_tracking_generate_messages_check_deps_TransformPoint
+
+# clean rule for target.
+chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/clean:
+	$(MAKE) -f chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/build.make chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/clean
+.PHONY : chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/clean
+
+#=============================================================================
 # Target rules for target chess_tracking/CMakeFiles/chess_tracking_geneus.dir
 
 # All Build rule for target.
@@ -1481,7 +1567,7 @@ chess_tracking/CMakeFiles/chess_tracking_geneus.dir/all: chess_tracking/CMakeFil
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_geneus.dir/rule
@@ -1500,16 +1586,19 @@ chess_tracking/CMakeFiles/chess_tracking_geneus.dir/clean:
 # Target rules for target chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir
 
 # All Build rule for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/depend
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=47 "Built target chess_tracking_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=51,52,53 "Built target chess_tracking_generate_messages_lisp"
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_lisp.dir/rule
@@ -1536,7 +1625,7 @@ chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/all: chess_tracking/CMake
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/rule
@@ -1552,46 +1641,22 @@ chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/clean:
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_gennodejs.dir/clean
 
 #=============================================================================
-# Target rules for target chess_tracking/CMakeFiles/chess_tracking_genpy.dir
-
-# All Build rule for target.
-chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all: chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all
-	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/depend
-	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num= "Built target chess_tracking_genpy"
-.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all
-
-# Build rule for subdir invocation for target.
-chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_genpy.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
-.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
-
-# Convenience name for target.
-chess_tracking_genpy: chess_tracking/CMakeFiles/chess_tracking_genpy.dir/rule
-
-.PHONY : chess_tracking_genpy
-
-# clean rule for target.
-chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean:
-	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_genpy.dir/build.make chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
-.PHONY : chess_tracking/CMakeFiles/chess_tracking_genpy.dir/clean
-
-#=============================================================================
 # Target rules for target chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir
 
 # All Build rule for target.
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/depend
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=48 "Built target chess_tracking_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=54,55,56 "Built target chess_tracking_generate_messages_nodejs"
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_nodejs.dir/rule
@@ -1618,7 +1683,7 @@ chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/all: chess_tracking/CMakeFil
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/rule
@@ -1638,15 +1703,18 @@ chess_tracking/CMakeFiles/chess_tracking_gencpp.dir/clean:
 
 # All Build rule for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/depend
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=44 "Built target chess_tracking_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=44,45,46 "Built target chess_tracking_generate_messages_cpp"
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/rule
@@ -1666,15 +1734,18 @@ chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir/clean:
 
 # All Build rule for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all: ar_track_alvar/ar_track_alvar_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_StringAndFloatsGrid.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_BoardString.dir/all
+chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all: chess_tracking/CMakeFiles/_chess_tracking_generate_messages_check_deps_TransformPoint.dir/all
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/depend
 	$(MAKE) -f chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build.make chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=49,50 "Built target chess_tracking_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=57,58,59,60,61 "Built target chess_tracking_generate_messages_py"
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles 0
 .PHONY : chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir/rule
@@ -2317,7 +2388,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/all: ar_t
 ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=55,56 "Built target findMarkerBundlesNoKinect"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=66,67 "Built target findMarkerBundlesNoKinect"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundlesNoKinect.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2435,7 +2506,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/all: ar_track_alv
 ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=53,54 "Built target findMarkerBundles"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=64,65 "Built target findMarkerBundles"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/findMarkerBundles.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2552,7 +2623,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/all: ar_track_alv
 ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=65,66 "Built target individualMarkers"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=76,77 "Built target individualMarkers"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkers.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2668,7 +2739,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/all: ar_track_alvar/ar
 ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=71,72 "Built target medianFilter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=82,83 "Built target medianFilter"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/medianFilter.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2783,7 +2854,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/all: ar_track_alva
 ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=69,70 "Built target kinect_filtering"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=80,81 "Built target kinect_filtering"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/kinect_filtering.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3095,7 +3166,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/all: ar_track_alvar/ar
 ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=51,52 "Built target createMarker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=62,63 "Built target createMarker"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/createMarker.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3347,7 +3418,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/all: ar_t
 ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=67,68 "Built target individualMarkersNoKinect"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=78,79 "Built target individualMarkersNoKinect"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/individualMarkersNoKinect.dir/all
 
 # Build rule for subdir invocation for target.
@@ -5087,7 +5158,7 @@ ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/all: ar_track_alv
 ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/all: ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/depend
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=73,74 "Built target trainMarkerBundle"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/CMakeFiles --progress-num=84,85 "Built target trainMarkerBundle"
 .PHONY : ar_track_alvar/ar_track_alvar/CMakeFiles/trainMarkerBundle.dir/all
 
 # Build rule for subdir invocation for target.

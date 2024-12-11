@@ -28,9 +28,9 @@ def main():
         request.ik_request.pose_stamped.header.frame_id = "base"
         
         # Set the desired orientation for the end effector HERE
-        request.ik_request.pose_stamped.pose.position.x = 0.5
-        request.ik_request.pose_stamped.pose.position.y = 0.5
-        request.ik_request.pose_stamped.pose.position.z = 0.0        
+        request.ik_request.pose_stamped.pose.position.x = .7887999668980878
+        request.ik_request.pose_stamped.pose.position.y = -0.19448417296343873
+        request.ik_request.pose_stamped.pose.position.z = -.146  
         request.ik_request.pose_stamped.pose.orientation.x = 0.0
         request.ik_request.pose_stamped.pose.orientation.y = 1.0
         request.ik_request.pose_stamped.pose.orientation.z = 0.0
