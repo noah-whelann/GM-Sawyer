@@ -8,6 +8,7 @@ import concurrent.futures
 import rospy
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
+from chess_tracking.msg import PieceMatches
 import rospkg
 
 
@@ -17,7 +18,8 @@ class PieceDetect:
 
         self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.image_callback)
 
-        self.image_pub = rospy.Publisher("detected_pieces", Image, queue_size=10)
+        self.image_pub = rospy.Publisher("detected_pieces", Image)
+        self.match_pub = rospy.Publisher("matched_pieces_coordinates", PieceMatches)
 
         rospack = rospkg.RosPack()
         package_path = rospack.get_path('chess_tracking')  # Replace with your package name
@@ -112,11 +114,12 @@ class PieceDetect:
             result = cv2.matchTemplate(image, rotated_template, cv2.TM_CCOEFF_NORMED)
             (yCoords, xCoords) = np.where(result >= threshold)
             
+            h, w = rotated_template.shape[:2]
             # Check if the match is above the threshold
             matches = []
             for (x, y) in zip(xCoords, yCoords):
                 matches.append({
-                    "location": (x, y),
+                    "location": (x + w//2, y + h//2),
                     "angle": angle,
                     "score": result[y,x],
                     "piece": piece
@@ -175,11 +178,22 @@ class PieceDetect:
 
             # Optionally draw a rectangle around the match
             top_left = match["location"]
+            top_left = (top_left[0] - w//2, top_left[1] - h//2)
             bottom_right = (top_left[0] + w, top_left[1] + h)
             cv2.rectangle(image_color, top_left, bottom_right, self.piece_colors[match['piece']], 2)
         print(f"Found {len(matches)} Matches")
         print("*******************\n")
         return cv2.cvtColor(image_color, cv2.COLOR_RGB2BGR)
+
+    def convert_to_msg(self, matches):
+        msg = PieceMatches()
+        for match in matches:
+            msg.name.append(match["piece"])
+            (x, y) = match["location"]
+            msg.x.append(x)
+            msg.y.append(y)
+
+        return msg
 
     def image_callback(self, msg):
         print("callback")
@@ -190,6 +204,9 @@ class PieceDetect:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         matches = self.find_chess_pieces(image)
+        msg = self.convert_to_msg(matches)
+
+        self.match_pub.publish(msg)
 
         processed_image = self.draw_matches(image, matches)
         
