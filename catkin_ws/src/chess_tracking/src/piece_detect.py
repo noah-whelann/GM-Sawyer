@@ -123,7 +123,7 @@ class PieceDetect:
                 })
             return matches
         
-        executor = concurrent.futures.ThreadPoolExecutor(20)
+        executor = concurrent.futures.ThreadPoolExecutor(30)
         futures = [executor.submit(worker, angle) for angle in angles]
 
         best_matches = []
@@ -133,7 +133,7 @@ class PieceDetect:
         
         return best_matches
 
-    def find_chess_pieces(self, image, distance_threshold=50, angles=range(0, 360, 10)):
+    def find_chess_pieces(self, image, distance_threshold=50, angles=range(-16, 16, 2)):
         """
         Finds all the chess pieces in an images, identifies them, and returns their location
         """
