@@ -63,9 +63,46 @@ class CameraTest:
             corners = corners.squeeze()
 
             # top left corner
-            corner = corners[16]
+            corner = corners[0] + corners[0] - corners[8]
             cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
-            print(corner)
+
+            # top right corner
+            corner = corners[6] + corners[6] - corners[12]
+            cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+
+            # bottom left corner
+            corner = corners[42] + corners[42] - corners[36]
+            cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+            
+            # bottom right corner
+            corner = corners[48] + corners[48] - corners[40]
+            cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+
+            for i in range(49):
+                color = (0, 255, 0)
+                if i // 7 == 0: # first row
+                    first_row_x = int(2 * corners[i][0] - corners[i+7][0])
+                    first_row_y = int(2 * corners[i][1] - corners[i+7][1])
+                    cv2.circle(image, (first_row_x, first_row_y), 30, color, 4)  # Draw the circle
+                
+                elif i // 7 == 6:
+                    bottom_row_x = int(2 * corners[i][0] - corners[i-7][0])
+                    bottom_row_y = int(2 * corners[i][1] - corners[i-7][1])
+                    cv2.circle(image, (bottom_row_x, bottom_row_y), 30, color, 4)  # Draw the circle
+                
+                if i % 7 == 0: # left edge
+                    left_col_x = int(2*corners[i][0] - corners[i+1][0])
+                    left_col_y = int(2*corners[i][1] - corners[i+1][1])
+                    cv2.circle(image, (left_col_x, left_col_y), 30, color, 4)  # Draw the circle
+
+                if i % 7 == 6: # right edge
+                    right_col_x = int(2*corners[i][0] - corners[i-1][0])
+                    right_col_y = int(2*corners[i][1] - corners[i-1][1])
+                    cv2.circle(image, (right_col_x, right_col_y), 30, color, 4)  # Draw the circle
+
+                x, y = int(corners[i][0]), int(corners[i][1])
+                cv2.circle(image, (x, y), 30, color, 4)  # Draw the circle
+
         else:
             print("NOT FOUND")
             corner = [0, 0]
