@@ -24,7 +24,7 @@ class PieceDetect:
         images_path = package_path + "/src/images"
         print(images_path + "/white_pawn.bmp")
 
-        white_pawn = cv2.imread(images_path + "/white_pawn.bmp", cv2.IMREAD_GRAYSCALE)
+        white_pawn = cv2.imread(images_path + "/white_pawn2.bmp", cv2.IMREAD_GRAYSCALE)
         if white_pawn is None:
             rospy.logerr("Failed to load template for white pawn.")
         white_bishop = cv2.imread(images_path + "/white_bishop.bmp", cv2.IMREAD_GRAYSCALE)
@@ -70,18 +70,18 @@ class PieceDetect:
         }
 
         self.thresholds = {
-            'P': 0.8,
-            'B': 0.8,
-            'R': 0.75,
-            'Q': 0.85,
-            'N': 0.75,
-            'K': 0.7,
-            'b': 0.915,
+            'P': 0.675,
+            'B': 0.65,
+            'R': 0.7,
+            'Q': 0.625,
+            'N': 0.65,
+            'K': 0.55,
+            'b': 0.85,
             'p': 0.875,
-            'r': 0.875,
-            'q': 0.9,
-            'n': 0.92,
-            'k': 0.9
+            'r': 0.85,
+            'q': 0.8,
+            'n': 0.8,
+            'k': 0.7
         }
 
         rospy.spin()
@@ -123,7 +123,7 @@ class PieceDetect:
                 })
             return matches
         
-        executor = concurrent.futures.ThreadPoolExecutor(10)
+        executor = concurrent.futures.ThreadPoolExecutor(30)
         futures = [executor.submit(worker, angle) for angle in angles]
 
         best_matches = []
@@ -133,14 +133,14 @@ class PieceDetect:
         
         return best_matches
 
-    def find_chess_pieces(self, image, distance_threshold=50, angles=range(0, 360, 10)):
+    def find_chess_pieces(self, image, distance_threshold=50, angles=range(-16, 16, 2)):
         """
         Finds all the chess pieces in an images, identifies them, and returns their location
         """
         matches = []
 
         # First blur the image
-        image = cv2.GaussianBlur(image, (3,3), 0)
+        image = cv2.GaussianBlur(image, (11,11), 0)
         
         # Perform rotation-invariant matching
         t0 = time.time()

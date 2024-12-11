@@ -9,6 +9,8 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
 from std_msgs.msg import String
 
+from chess_tracking.srv import BoardString
+
 import json
 
 class BoardService:
@@ -19,7 +21,7 @@ class BoardService:
 
         self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.camera_callback)
 
-        self.debug_writer = rospy.Subscriber("/logitech_c920/image_raw", Image, self.debug_image)
+        # self.debug_writer = rospy.Subscriber("/logitech_c920/image_raw", Image, self.debug_image)
 
         self.board_service = rospy.Service("board_service", String, self.board_callback)
 
