@@ -14,6 +14,7 @@ from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
+import rospkg
 from chess_tracking.src.transform_coordinates import transform_point_to_base
 from chess_tracking.srv import BoardString
 
@@ -58,6 +59,7 @@ def get_tile_locations(board: ChessBoard):
 
     return
 
+
 # Arguments are of type Point() -> doesn't return anything
 
 
@@ -76,7 +78,10 @@ def main():
 
     rospy.init_node("main_node", anonymous=True)
 
-    stockfish_path = ".."
+    rospack = rospkg.RosPack()
+    package_path = rospack.get_path('chess_tracking')  # Replace with your package name
+
+    stockfish_path = package_path + "/src/stockfish-ubuntu-x86-64-vnni512"
     stockfish = Stockfish(stockfish_path)  # init Stockfish
     stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
