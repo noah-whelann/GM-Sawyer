@@ -108,7 +108,11 @@ def rotation_invariant_template_matching(image, template, piece, angles, thresho
     
     return best_matches
 
+<<<<<<< HEAD
 def find_chess_pieces(image, distance_threshold=50, angles=range(0, 360, 10)):
+=======
+def find_chess_pieces(image, distance_threshold=15, angles=range(0, 360, 10)):
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
     """
     Finds all the chess pieces in an images, identifies them, and returns their location
     """

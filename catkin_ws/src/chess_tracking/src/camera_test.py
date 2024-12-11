@@ -62,25 +62,44 @@ class CameraTest:
         if ret:
             corners = corners.squeeze()
 
+            all_corners = np.empty((0, 2))
+
             # top left corner
             corner = corners[0] + corners[0] - corners[8]
             cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+<<<<<<< HEAD
+=======
+            all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
 
             # top right corner
             corner = corners[6] + corners[6] - corners[12]
             cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+<<<<<<< HEAD
+=======
+            all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
 
             # bottom left corner
             corner = corners[42] + corners[42] - corners[36]
             cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+<<<<<<< HEAD
+=======
+            all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
             
             # bottom right corner
             corner = corners[48] + corners[48] - corners[40]
             cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+<<<<<<< HEAD
+=======
+            all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
 
             for i in range(49):
                 color = (0, 255, 0)
                 if i // 7 == 0: # first row
+<<<<<<< HEAD
                     first_row_x = int(2 * corners[i][0] - corners[i+7][0])
                     first_row_y = int(2 * corners[i][1] - corners[i+7][1])
                     cv2.circle(image, (first_row_x, first_row_y), 30, color, 4)  # Draw the circle
@@ -102,6 +121,32 @@ class CameraTest:
 
                 x, y = int(corners[i][0]), int(corners[i][1])
                 cv2.circle(image, (x, y), 30, color, 4)  # Draw the circle
+=======
+                    corner = 2 * corners[i] - corners[i+7]
+                    cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+                    all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+                
+                elif i // 7 == 6:
+                    corner = 2 * corners[i] - corners[i-7]
+                    cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+                    all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+                
+                if i % 7 == 0: # left edge
+                    corner = 2 * corners[i] - corners[i+1]
+                    cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+                    all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+
+                if i % 7 == 6: # right edge
+                    corner = 2 * corners[i] - corners[i-1]
+                    cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+                    all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+
+                corner = corners[i]
+                cv2.circle(image, (int(corner[0]), int(corner[1])), 30, (0, 0, 255), 4)  # Draw the circle
+                all_corners = np.append(all_corners, corner.reshape(1, -1), axis=0)
+
+            all_corners = all_corners.tolist()
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
 
         else:
             print("NOT FOUND")
