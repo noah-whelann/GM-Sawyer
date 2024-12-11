@@ -15,23 +15,23 @@ from geometry_msgs.msg import Point
 
 class CameraTest:
     def __init__(self):
-        # rospy.init_node('camera_test', anonymous=True)
+        rospy.init_node('camera_test', anonymous=True)
 
-        # self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.image_callback)
+        self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.image_callback)
 
-        # self.image_pub = rospy.Publisher("processed_cam", Image, queue_size=10)
+        self.image_pub = rospy.Publisher("processed_cam", Image, queue_size=10)
 
         self.coord_pub = rospy.Publisher("corner_coords", Point, queue_size=10)
 
-        # print("hi")
-        # rospy.spin()
+        print("hi")
+        rospy.spin()
 
         rospy.init_node('robot_camera_test', anonymous=True)
 
-        self.subscriber = rospy.Subscriber("/io/internal_camera/right_hand_camera/image_raw", Image, self.test_arm_camera)
+        # self.subscriber = rospy.Subscriber("/io/internal_camera/right_hand_camera/image_raw", Image, self.test_arm_camera)
         self.publisher = rospy.Publisher("processed_cam", Image, queue_size=10)
 
-        rospy.spin()
+        # rospy.spin()
     
 
     def image_callback(self, msg):
@@ -47,46 +47,6 @@ class CameraTest:
         coord_point.y = coords[1]
         
         self.coord_pub.publish(coord_point)
-
-    # def process_image(self, img):
-        
-    #     bridge = CvBridge()
-
-    #     image = bridge.imgmsg_to_cv2(img, "bgr8")
-
-    #     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
-    #     lower_red1 = np.array([0, 100, 100])
-    #     upper_red1 = np.array([10, 255, 255])
-
-    #     lower_red2 = np.array([170, 100, 100])
-    #     upper_red2 = np.array([180, 255, 255])
-
-    #     mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
-    #     mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
-
-    #     mask = cv2.bitwise_or(mask1, mask2)
-
-    #     result = cv2.bitwise_and(image, image, mask=mask)
-
-    #     circles = cv2.HoughCircles(
-    #         mask,
-    #         cv2.HOUGH_GRADIENT,
-    #         dp=1,
-    #         minDist=100,
-    #         param1=50,
-    #         param2=20,
-    #         minRadius=15,
-    #         maxRadius=150
-    #     )
-
-    #     if circles is not None:
-    #         circles = np.round(circles[0, :]).astype("int")
-
-    #         for (x, y, r) in circles:
-    #             cv2.circle(image, (x, y), r, (0, 255, 0), 4)
-
-    #     return bridge.cv2_to_imgmsg(image)
 
     def process_board(self, img):
 
