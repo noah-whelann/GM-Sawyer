@@ -30,8 +30,8 @@ import roslaunch
 
 fast_v = 0.5 #slowed for auto test
 med_v = 0.6
-slow_v = 0.3    
-def pickup_and_place():
+slow_v = 0.2
+def pickup_and_place(pickup_coords, place_coords, capture):
     #starts node
     rospy.init_node('service_query')
     rospy.wait_for_service('compute_ik')
@@ -50,47 +50,40 @@ def pickup_and_place():
     
     group.set_max_velocity_scaling_factor(fast_v) #1.0 is fastest
 
-    z_pos = {"hover":-0.141, "grab":-0.167, "reset":0.231}
-    tuck(group)
+    z_pos = {"hover":-0.141, "grab":-0.167, "reset":0.231, "drop":0.15}
+    tuck(group, False)
 
-    while not rospy.is_shutdown():
-        mode = input('is this auto mode? y/n')
-
-        coordinates = input("Enter a comma-separated list of 4 coordinates (2 pickup xy, 2 place xy): ")
-        try:
-            coordinate_array = [float(coord) for coord in coordinates.split(',')]
-            if len(coordinate_array) != 4:
-                raise ValueError("You must enter exactly 4 coordinates.")
-        except ValueError as e:
-            print(f"Invalid input: {e}")
-            continue
-
-        pickup_coords = coordinate_array[:2]
-        place_coords = coordinate_array[2:]
-
-        try:
-            # Pickup piece (hover)
-            print('Starting piece pickup...')
-            group.set_max_velocity_scaling_factor(fast_v)
-            if execute_pose(group, compute_ik, pickup_coords, z_pos['hover'], "base", "right_gripper_tip", mode):
-                print('Opening')
-                right_gripper.open()
-                rospy.sleep(1.0)
-                
-
-            #Lowering to pickup piece (grab)
-            print('Grabbing piece...')
-            group.set_max_velocity_scaling_factor(slow_v)
-            execute_pose(group, compute_ik, pickup_coords, z_pos['grab'], "base", "right_gripper_tip", mode)
-            right_gripper.close()
+    #while not rospy.is_shutdown():
+    mode = input('is this auto mode? y/n')
+    
+    try:
+        # Pickup piece (hover)
+        print('Starting piece pickup...')
+        group.set_max_velocity_scaling_factor(fast_v)
+        if execute_pose(group, compute_ik, pickup_coords, z_pos['hover'], "base", "right_gripper_tip", mode):
+            print('Opening')
+            right_gripper.open()
             rospy.sleep(1.0)
+            
 
-            # Move piece straight up (reset)
-            print('Lifting piece...')
-            group.set_max_velocity_scaling_factor(fast_v)
-            execute_pose(group, compute_ik, pickup_coords, z_pos['reset'], "base", "right_gripper_tip", mode)
+        #Lowering to pickup piece (grab)
+        print('Grabbing piece...')
+        group.set_max_velocity_scaling_factor(slow_v)
+        execute_pose(group, compute_ik, pickup_coords, z_pos['grab'], "base", "right_gripper_tip", mode)
+        right_gripper.close()
+        rospy.sleep(1.0)
 
-            # Place piece down (hover)
+        # Move piece straight up (reset)
+        print('Lifting piece...')
+        group.set_max_velocity_scaling_factor(fast_v)
+        execute_pose(group, compute_ik, pickup_coords, z_pos['reset'], "base", "right_gripper_tip", mode)
+
+        if capture: #if performing a piece capture, set z differently and skip place movement
+        # Place piece down (hover)
+            print('Dropping captured piece')
+            execute_pose(group, compute_ik, place_coords, z_pos['drop'], "base", "right_gripper_tip", mode)
+        
+        else:
             print('Moving to place position...')
             execute_pose(group, compute_ik, place_coords, z_pos['hover'], "base", "right_gripper_tip", mode)
 
@@ -99,22 +92,23 @@ def pickup_and_place():
             group.set_max_velocity_scaling_factor(slow_v)
             execute_pose(group, compute_ik, place_coords, z_pos['grab'], "base", "right_gripper_tip", mode)
             print('Piece released')
-            right_gripper.open()
-            rospy.sleep(1.0)
+        
+        right_gripper.open()
+        rospy.sleep(1.0)
 
-            # Reset upwards
-            print('Resetting arm...')
-            group.set_max_velocity_scaling_factor(fast_v)
-            execute_pose(group, compute_ik, place_coords, z_pos['reset'], "base", "right_gripper_tip", mode)
-            
-            tuck(group)
+        # Reset upwards
+        print('Resetting arm...')
+        group.set_max_velocity_scaling_factor(fast_v)
+        execute_pose(group, compute_ik, place_coords, z_pos['reset'], "base", "right_gripper_tip", mode)
+        
+        tuck(group, True)
 
-        except rospy.ServiceException as e:
-            print(f"Service call failed: {e}")
-        except Exception as ex:
-            print(f"An error occurred: {ex}")
+    except rospy.ServiceException as e:
+        print(f"Service call failed: {e}")
+    except Exception as ex:
+        print(f"An error occurred: {ex}")
 
-def execute_pose(group, compute_ik, coords, z, frame_id, link_name , mode):
+def execute_pose(group, compute_ik, coords, z, frame_id, link_name , mode): 
 
     auto = True if mode == 'y' else False
     request = GetPositionIKRequest()
@@ -133,7 +127,7 @@ def execute_pose(group, compute_ik, coords, z, frame_id, link_name , mode):
 
     if response.error_code.val != 1:
         print("IK solution not found! Attempting to tuck")
-        if tuck(group):
+        if tuck(group, False):
             print("tucked successfully!") 
             return True
         print("ggs lol") #probably need have some contingency here
@@ -149,18 +143,18 @@ def execute_pose(group, compute_ik, coords, z, frame_id, link_name , mode):
     if auto:
         #be careful with the auto mode, it wont wait for you to preview
         group.execute(plan[1], wait=True)
-        rospy.sleep(2.0)
+        rospy.sleep(1.0)
         return True
     else:
         user_input = input("Enter 'y' if the trajectory looks safe in RViz: Hit n to tuck and try again ")
         if user_input.lower() == 'y' and not auto:
             group.execute(plan[1], wait=True)
-            rospy.sleep(2.0)
+            rospy.sleep(1.0)
             return True
         elif user_input.lower() == 'n' and not auto:
-            tuck(group) #tucks robot and tries move again
+            tuck(group, True) #tucks robot and tries move again
             print('Tucked')
-            rospy.sleep(2.0)
+            rospy.sleep(1.0)
             print('Retrying')
             return execute_pose(group, compute_ik, coords, z, frame_id, link_name) #will tuck and retry the move until user says yes or stops programto:
         
@@ -169,11 +163,12 @@ def execute_pose(group, compute_ik, coords, z, frame_id, link_name , mode):
     return False
 
 
-def tuck(group):
+def tuck(group, auto):
     """
     Tuck the robot arm to the start position. Use with caution
     """
     group.set_max_velocity_scaling_factor(slow_v)
+    rospy.sleep(1.0)
     arm = Limb('right') #used for tuck
     joint_angles = { #tuck joints
         'right_j0': 0.0,
@@ -184,7 +179,9 @@ def tuck(group):
         'right_j5': 1.6,
         'right_j6': 1.57079632679
     }
-    
+    if auto:
+        arm.move_to_joint_positions(joint_angles)
+        return True
     if input('Would you like to tuck the arm? (y/n): ') == 'y':
         arm.move_to_joint_positions(joint_angles) #DONT tuck if already at the position, will cause robot to stop
         return True
@@ -194,4 +191,4 @@ def tuck(group):
 
 
 if __name__ == '__main__':
-    main()
+    pickup_and_place()
