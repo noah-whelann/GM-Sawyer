@@ -22,7 +22,9 @@ def get_tile_locations():  # returns a list of tuples, each tuple is for a tile,
     return
 
 
-def move_robot(pixel_coords):  # transform pixel coordinates to world coordinates
+def move_robot(move_location):  # transform pixel coordinates to world coordinates
+    transformed_coords = transformed_coordinates_service(move_location)
+    move_arm_service(transformed_coords)
     # send over the world coordinates to move_arm function
     # that handles all the ik and planning
     return
