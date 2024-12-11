@@ -14,6 +14,7 @@ from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
+import rospkg
 
 
 def get_board_state():  # return fen of current board state
@@ -43,11 +44,10 @@ def get_transformation(pixel_coordinates):
 
         return transform_response
 
-    except:
-        rospy.ServiceException as e:
+    except rospy.ServiceException as e:
         rospy.logerr("Service call failed: %s", e)
 
-    return Error
+        return Error
 
 # Arguments are of type Point() -> doesn't return anything
 
@@ -67,7 +67,10 @@ def main():
 
     rospy.init_node("main_node", anonymous=True)
 
-    stockfish_path = ".."
+    rospack = rospkg.RosPack()
+    package_path = rospack.get_path('chess_tracking')  # Replace with your package name
+
+    stockfish_path = package_path + "/src/stockfish-ubuntu-x86-64-vnni512"
     stockfish = Stockfish(stockfish_path)  # init Stockfish
     stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class

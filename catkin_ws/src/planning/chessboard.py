@@ -9,8 +9,6 @@ class TileObject:
 class ChessBoard:
 
     def init(self) -> None:
-        self.origin_offset_x = x #Distance from AR tag to (0,0) point on chessboard (a1)
-        self.origin_offset_y = y
         self.chess_tiles = {}
         self.starting_tiles = {
             # White pieces
