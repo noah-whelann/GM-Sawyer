@@ -1,24 +1,28 @@
 ## CHECKLIST BEFORE RUNNING DEMO ##
-## RVIZ Open (?)
-## Intera server running
-## Camera screwed, wires ziptied or not in the way
-## Validate Z position is correct (in case of shifted table)
-
+# RVIZ Open (?)
+# Intera server running
+# Camera screwed, wires ziptied or not in the way
+# Validate Z position is correct (in case of shifted table)
 
 
 # Step 1:
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
+from csv import Error
+from catkin_ws.src.chess_tracking.src import transform_coordinates_service
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
-from move_arm.pickup_integ import 
+import rospy
+from geometry_msgs.msg import Point, PointStamped
+from move_arm.src.pickup_integ import pickup_and_place
 
 
 def get_board_state():  # return fen of current board state
     return
 
 
-def get_piece_location_on_tile(tile): #returns tuple of piece xy
+# should return a Point() in terms of pixels
+def get_piece_location_on_tile(tile):
     return
 
 
@@ -30,20 +34,36 @@ def get_tile_locations():  # returns a list of tuples, each tuple is for a tile,
     return
 
 
-def move_robot(move_location):  # transform pixel coordinates to world coordinates
-    transformed_coords = transformed_coordinates_service(move_location)
-    move_arm_service(transformed_coords)
-    # send over the world coordinates to move_arm function
-    # that handles all the ik and planning
-    return
+def get_transformation(pixel_coordinates):
+    rospy.wait_for_service("transform_coordinates_service")
+    try:
+        transform_service = rospy.ServiceProxy("transform_coordinates_service")
+
+        transform_response = transform_service(pixel_coordinates)
+
+        return transform_response
+
+    except:
+        rospy.ServiceException as e:
+        rospy.logerr("Service call failed: %s", e)
+
+    return Error
+
 
 def pickup_and_place_piece(from_tile, to_tile):
+
+    start_goal = get_transformation(from_tile)
+    end_goal = get_transformation(to_tile)
+
+    pickup_and_place(start_goal, end_goal)
+
     return
-
-
 
 
 def main():
+
+    rospy.init_node("main_node", anonymous=True)
+
     stockfish_path = ".."
     stockfish = Stockfish(stockfish_path)  # init Stockfish
     stockfish.set_skill_level(5)
@@ -65,9 +85,12 @@ def main():
         place_tile = next_move[2:]  # e4
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
-        place_tile_coords = (board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y) #accesses board hashmap and grabs tile xy
+        # accesses board hashmap and grabs tile xy
+        place_tile_coords = (
+            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
 
-        pickup_and_place_piece(pickup_tile_coords, place_tile_coords) # should be one fluid motion
+        # should be one fluid motion
+        pickup_and_place_piece(pickup_tile_coords, place_tile_coords)
         # robot then tucks after its move (automatically handled in new_pickup.py)
 
         # wait for user to execute move
