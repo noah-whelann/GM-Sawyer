@@ -10,12 +10,12 @@ white_rook = cv2.imread("./images/pieces/white_rook.bmp", cv2.IMREAD_GRAYSCALE)
 white_queen = cv2.imread("./images/pieces/white_queen.bmp", cv2.IMREAD_GRAYSCALE)
 white_knight = cv2.imread("./images/pieces/white_knight.bmp", cv2.IMREAD_GRAYSCALE)
 white_king = cv2.imread("./images/pieces/white_king.bmp", cv2.IMREAD_GRAYSCALE)
-# black_pawn = cv2.imread("./images/pieces/black_pawn.bmp", cv2.IMREAD_GRAYSCALE)
-# black_bishop = cv2.imread("./images/pieces/black_bishop.bmp", cv2.IMREAD_GRAYSCALE)
-# black_rook = cv2.imread("./images/pieces/black_rook.bmp", cv2.IMREAD_GRAYSCALE)
-# black_queen = cv2.imread("./images/pieces/black_queen.bmp", cv2.IMREAD_GRAYSCALE)
-# black_knight = cv2.imread("./images/pieces/black_knight.bmp", cv2.IMREAD_GRAYSCALE)
-# black_king = cv2.imread("./images/pieces/black_king.bmp", cv2.IMREAD_GRAYSCALE)
+black_pawn = cv2.imread("./images/pieces/black_pawn.bmp", cv2.IMREAD_GRAYSCALE)
+black_bishop = cv2.imread("./images/pieces/black_bishop.bmp", cv2.IMREAD_GRAYSCALE)
+black_rook = cv2.imread("./images/pieces/black_rook.bmp", cv2.IMREAD_GRAYSCALE)
+black_queen = cv2.imread("./images/pieces/black_queen.bmp", cv2.IMREAD_GRAYSCALE)
+black_knight = cv2.imread("./images/pieces/black_knight.bmp", cv2.IMREAD_GRAYSCALE)
+black_king = cv2.imread("./images/pieces/black_king.bmp", cv2.IMREAD_GRAYSCALE)
 
 piece_templates = {
     'P': white_pawn,
@@ -24,12 +24,12 @@ piece_templates = {
     'Q': white_queen,
     'N': white_knight,
     'K': white_king,
-#     'p': black_pawn,
-#     'b': black_bishop,
-#     'r': black_rook,
-#     'q': black_queen,
-#     'n': black_knight,
-#     'k': black_king
+    'p': black_pawn,
+    'b': black_bishop,
+    'r': black_rook,
+    'q': black_queen,
+    'n': black_knight,
+    'k': black_king
 }
 
 piece_colors = {
@@ -39,12 +39,12 @@ piece_colors = {
     'Q': (255, 255, 0),    # White Queen - Cyan
     'N': (255, 0, 255),    # White Knight - Magenta
     'K': (255, 165, 0),    # White King - Orange
-    # 'p': (128, 128, 128),  # Black Pawn - Gray
-    # 'b': (0, 100, 0),      # Black Bishop - Dark Green
-    # 'r': (42, 42, 165),    # Black Rook - Brown
-    # 'q': (128, 0, 128),    # Black Queen - Purple
-    # 'n': (203, 192, 255),  # Black Knight - Pink
-    # 'k': (255, 182, 193),  # Black King - Light Blue
+    'p': (128, 128, 128),  # Black Pawn - Gray
+    'b': (0, 100, 0),      # Black Bishop - Dark Green
+    'r': (42, 42, 165),    # Black Rook - Brown
+    'q': (128, 0, 128),    # Black Queen - Purple
+    'n': (203, 192, 255),  # Black Knight - Pink
+    'k': (255, 182, 193),  # Black King - Light Blue
 }
 
 thresholds = {
@@ -54,12 +54,12 @@ thresholds = {
     'Q': 0.85,
     'N': 0.75,
     'K': 0.7,
-#     'p': None,
-#     'b': None,
-#     'r': None,
-#     'q': None,
-#     'n': None,
-#     'k': None
+    'b': 0.915,
+    'p': 0.875,
+    'r': 0.875,
+    'q': 0.9,
+    'n': 0.92,
+    'k': 0.9
 }
 
 def rotate_image(image, angle):
@@ -108,14 +108,18 @@ def rotation_invariant_template_matching(image, template, piece, angles, thresho
     
     return best_matches
 
+<<<<<<< HEAD
+def find_chess_pieces(image, distance_threshold=50, angles=range(0, 360, 10)):
+=======
 def find_chess_pieces(image, distance_threshold=15, angles=range(0, 360, 10)):
+>>>>>>> 22e1fb0ed08a842c4ae0e3dc4b60f58255fbb9db
     """
     Finds all the chess pieces in an images, identifies them, and returns their location
     """
     matches = []
 
     # First blur the image
-    image = cv2.GaussianBlur(image, (5,5), 0)
+    image = cv2.GaussianBlur(image, (3,3), 0)
     
     # Perform rotation-invariant matching
     t0 = time.time()
@@ -163,13 +167,25 @@ board_1 = cv2.imread("./images/boards/board_1.png", cv2.IMREAD_GRAYSCALE)
 board_2 = cv2.imread("./images/boards/board_2.png", cv2.IMREAD_GRAYSCALE)
 board_3 = cv2.imread("./images/boards/board_3.png", cv2.IMREAD_GRAYSCALE)
 board_4 = cv2.imread("./images/boards/board_4.png", cv2.IMREAD_GRAYSCALE)
+board_5 = cv2.imread("./images/boards/board_5.png", cv2.IMREAD_GRAYSCALE)
+board_6 = cv2.imread("./images/boards/board_6.png", cv2.IMREAD_GRAYSCALE)
+board_7 = cv2.imread("./images/boards/board_7.png", cv2.IMREAD_GRAYSCALE)
+board_8 = cv2.imread("./images/boards/board_8.png", cv2.IMREAD_GRAYSCALE)
 matches_0 = find_chess_pieces(board_0)
 matches_1 = find_chess_pieces(board_1)
 matches_2 = find_chess_pieces(board_2)
 matches_3 = find_chess_pieces(board_3)
 matches_4 = find_chess_pieces(board_4)
+matches_5 = find_chess_pieces(board_5)
+matches_6 = find_chess_pieces(board_6)
+matches_7 = find_chess_pieces(board_7)
+matches_8 = find_chess_pieces(board_8)
 draw_matches(board_0, matches_0, "board_0")
 draw_matches(board_1, matches_1, "board_1")
 draw_matches(board_2, matches_2, "board_2")
 draw_matches(board_3, matches_3, "board_3")
 draw_matches(board_4, matches_4, "board_4")
+draw_matches(board_5, matches_5, "board_5")
+draw_matches(board_6, matches_6, "board_6")
+draw_matches(board_7, matches_7, "board_7")
+draw_matches(board_8, matches_8, "board_8")
