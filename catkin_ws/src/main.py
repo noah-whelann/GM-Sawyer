@@ -67,7 +67,8 @@ def get_board_state(board: ChessBoard):  # return fen of current board state
     # placeholders w KQkq - 0 1
     # white to move, KQ -> black can castle kingside
     # "- -" means no one can castle
-    # 
+    # en passant stuff must be added later
+    # last two numers are the halfmove number and fullmove number respectively
     return f"{piece_placement} w KQkq - 0 1"
 
 
