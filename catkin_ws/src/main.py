@@ -42,9 +42,33 @@ def get_next_move(fen):
 
 
 def get_board_state(board: ChessBoard):  # return fen of current board state
-    
 
-    return
+    return_fen = []
+
+    for row in range(8, 0, -1):  # iterate down the rows of the board
+        empty = 0
+        each_row = []
+        for i in "ABCDEFGH":  # scan left to right top to bottom
+            tile_name = f"{i}{row}"
+            piece = board.chess_tiles[tile_name].piece if tile_name in board.chess_tiles else ""
+
+            if piece == "":
+                empty += 1
+            else:
+                if empty > 0:
+                    each_row.append(str(empty))
+                each_row.append(piece)
+
+            return_fen.append("".join(each_row))
+
+    # combine all rows
+    piece_placement = "/".join(each_row)
+
+    # placeholders w KQkq - 0 1
+    # white to move, KQ -> black can castle kingside
+    # "- -" means no one can castle
+    # 
+    return f"{piece_placement} w KQkq - 0 1"
 
 
 def transform_camera_to_world(pixel_coords: Point) -> Point:
