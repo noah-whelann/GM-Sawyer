@@ -8,7 +8,10 @@ from moveit_msgs.srv import GetPositionIK, GetPositionIKRequest
 
 import numpy as np
 
-import board_lib as board
+import requests
+import json
+
+from board_lib import BoardUpdater
 
 class CLI:
     def __init__(self):
@@ -43,6 +46,8 @@ class CLI:
 
         self.tip_name = "stp_022312TP99620_tip_1"
 
+        self.right_gripper = intera_interface.gripper.Gripper("right_gripper")
+
 
         ### BOARD COORDINATES CONFIGURATIONS ###
 
@@ -53,23 +58,70 @@ class CLI:
         self.right_increment = self.a2_xy - self.a1_xy
         self.down_increment = self.b1_xy - self.a1_xy
 
-        ## 0.368 0.113
-
-        print(self.right_increment, self.down_increment)
-
         self.z = {"hover":-0.141, "grab":-0.167, "reset":0.231, "drop":0.15, "gripper": -0.1}
 
-        self.tile_to_coords = {}
+        self.running = True
+
+        ### BOARD PROCESSING CONFIGURATIONS
+
+        self.tile_to_piece = {}
+        
+        self.board_updater = BoardUpdater()
 
     def run(self):
         self.calibrate()
 
-        self.arm_to_tile("a1", "reset")
+        while self.running:
+            if input("Press Enter to Calculate Board State. Press q to quit. \n") == "q":
+                self.running = False
+            else:
+                print("Calculating board state...")
+
+                rospy.wait_for_service('screenshot_service')
+
+                try:
+                    get_screenshot = rospy.ServiceProxy('screenshot_service')
+                    imgmsg = get_screenshot()
+
+                    self.update_board(imgmsg)
+
+                    fen_string = self.get_fen_string()
+                    header = {fen_string}
+
+                    print("Making a request to Chess API...")
+
+                    resp = requests.post("https://chess-api.com/v1", json=header)
+                    resp.raise_for_status()
+
+                    data = json.loads(resp.text)
+                    
+                    best_move = data['move']
+
+                    from_tile = data["from"]
+                    to_tile = data["to"]
+
+                    if input(f"Begin picking up tile at {from_tile}? (y/n)") == "y":
+                        self.pick_up_tile(from_tile)
+                    else:
+                        raise Exception("Aborting process")
+                    
+                    if input(f"Begin placing tile at {to_tile}? (y/n)") == "y":
+                        self.pick_up_tile(from_tile)
+                    else:
+                        raise Exception("Aborting process")
+
+                except Exception as e:
+                    print(e)
 
     def calibrate(self):
         # Tuck the Sawyer Arm
         if input("Would you like to tuck the arm? (y/n) \n") == "y":
             self.tuck()
+
+        if input("Would you like to calibrate the gripper? (y/n) \n") == "y":
+            print('Calibrating gripper...')
+            self.right_gripper.calibrate()
+            rospy.sleep(2.0)
 
         input("Please confirm that the board is properly placed. (Enter) \n")
 
@@ -89,24 +141,57 @@ class CLI:
 
         print("Finished Tucking Sawyer Robot. \n \n")
 
-    def arm_to_tile(self, tile_name, height):
+    def recover(self):
+        print("Recovering Sawyer Robot...")
+
+        self.commander.set_max_velocity_scaling_factor(self.arm_speeds["slow"])
+        rospy.sleep(1.0)
+
+        self.limb.move_to_joint_positions(self.standard_tuck_angles)
+
+    def arm_to_tile(self, tile_name):
         row = tile_name[0]  # alphabet
         col = tile_name[1]  # number
 
         num_down = ord(row) - ord('a')
-        print(num_down)
         num_right = int(col) - 1
-
-        print(self.a1_xy, self.down_increment, num_down, self.right_increment, num_right)
-        print("multiplications: ", self.down_increment * num_down, self.right_increment * num_right)
 
         target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
-        print(target_xy)
+        for height in ["reset", "drop", "gripper"]:
+            self.move_to_coord(target_xy, self.z[height])
 
+    def pick_up_tile(self, tile_name):
+        row = tile_name[0]  # alphabet
+        col = tile_name[1]  # number
+
+        num_down = ord(row) - ord('a')
+        num_right = int(col) - 1
+
+        target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
         for height in ["reset", "drop", "gripper"]:
             self.move_to_coord(target_xy, self.z[height])
+
+        self.right_gripper.close()
+
+        self.recover()
+    
+    def place_tile(self, tile_name):
+        row = tile_name[0]  # alphabet
+        col = tile_name[1]  # number
+
+        num_down = ord(row) - ord('a')
+        num_right = int(col) - 1
+
+        target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
+
+        for height in ["reset", "drop", "gripper"]:
+            self.move_to_coord(target_xy, self.z[height])
+        
+        self.right_gripper.open()
+
+        self.recover()
 
     def move_to_coord(self, xy_arr, z):
         rospy.wait_for_service('compute_ik')
@@ -144,8 +229,62 @@ class CLI:
     ###################
     ### BOARD STATE ###
     ###################
+    def update_board(self, imgmsg):
+        tile_to_coords = self.board_updater.get_tile_coords()
+        piece_to_coords = self.board_updater.get_piece_coords()
 
+        curr_map = {}
 
+        for piece_name in piece_to_coords:
+            piece_coords = piece_to_coords[piece_name]
+
+            for tile_name in tile_to_coords:
+                tile_coords = tile_to_coords[tile_name]
+
+                bottom_left_x = tile_coords[0][0]
+                bottom_left_y = tile_coords[0][1]
+                top_right_x = tile_coords[1][0]
+                top_right_y = tile_coords[1][1]
+
+                if bottom_left_x <= piece_coords[0] <= top_right_x and bottom_left_y <= piece_coords[1] <= top_right_y:
+                    curr_map[tile_name] = piece_name
+                    break
+        
+        for key in self.tile_to_piece.keys():
+            if key in curr_map:
+                self.tile_to_piece[key] = curr_map[key]
+            else:
+                self.tile_to_piece[key] = ""
+
+    def get_fen_string(self):
+        fen_string = ""
+        index = 0
+        conseq_empty_space = 0
+        for tile_name in sorted(self.tile_to_piece.keys()):
+            if index == 8:
+                index = 0
+                if conseq_empty_space > 0:
+                    fen_string += str(conseq_empty_space)
+                    conseq_empty_space = 0
+                fen_string += "/"
+                continue
+
+            piece_name = self.tile_to_piece[tile_name]
+
+            if piece_name == "":
+                conseq_empty_space += 1
+            else:
+                if conseq_empty_space > 0:
+                    fen_string += str(conseq_empty_space)
+                    conseq_empty_space = 0
+                fen_string += piece_name
+
+            index += 1
+
+        if conseq_empty_space > 0:
+            fen_string += str(conseq_empty_space)
+        
+        return fen_string + " w - - 0 1"
 
 
 
