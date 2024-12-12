@@ -1,10 +1,14 @@
 # origin point on chessboard is considered as tile a1, everything else is an offset off that
 # 5.715 x 5.715 cm tile sizes
+from geometry_msgs.msg import Point
+
 class TileObject:
     def init(self, x, y, piece = "") -> None: #contains tile coordinate and the piece on it (if there is one)
         self.x = x
         self.y = y
+        self.tile_center = Point(x, y, 0)
         self.piece = piece
+        self.piece_location = Point(0, 0, 0)
 
 class ChessBoard:
 
@@ -37,10 +41,9 @@ class ChessBoard:
         for row in range(0,8):
             col_counter = 0
             for col in "ABCDEFGH":
-                currTile = TileObject(0, 0, piece)
                 tile_as_string = f"{col}{row + 1}" #rows are 1-indexed
                 piece = self.starting_tiles[tile_as_string] if self.starting_tiles.get(tile_as_string) else "" #if the tile has a starting piece assign it
-                
+                currTile = TileObject(0, 0, piece)
                 self.chess_tiles[tile_as_string] = currTile
                 col_counter += 1
 

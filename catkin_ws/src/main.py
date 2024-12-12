@@ -18,74 +18,106 @@ from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
 import rospkg
 import requests
+import json
 # from chess_tracking.src.transform_coordinates import transform_point_to_base
 from chess_tracking.srv import BoardString
 from chess_tracking.srv import PieceMatches
+from chess_tracking.srv import TransformPoint
 
 rospy.wait_for_service("board_service")
 rospy.wait_for_service("match_pieces")
+rospy.wait_for_service("transform_camera_coordinates")
 
 
 def get_next_move(fen):
     header = {fen}
-    r = requests.post("https://chess-api.com/v1", json=header)
-    return r.text #modify so it only returns the next move
-def get_board_state():  # return fen of current board state
+    response = requests.post("https://chess-api.com/v1", json=header)
+    response.raise_for_status() # check for error
+
+    data = json.loads(response.text)
+
+    best_move = data['move']
+
+    return best_move
+
+def get_board_state(board: ChessBoard):  # return fen of current board state
+
     return
 
-# should return a Point() in terms of pixels
+
+def transform_camera_to_world(pixel_coords: Point) -> Point:
+    transform_service = rospy.ServiceProxy("transform_camera_coordinates")
+
+    # first turn pixel_coords into it's respective data type: "TransformPoint"
+    request = TransformPoint()
+    request.input_point.x = pixel_coords.x
+    request.input_point.y = pixel_coords.y
+    request.input_point.z = pixel_coords.z
+
+    # real_coords is of type TransformPoint
+    real_coords = transform_service(request)
+
+    # exract the point from TransformPoint datatype
+    return real_coords.transformed_point
 
 
-def get_piece_location_on_tile(tile: str):
-    return
+def get_piece_location_on_tile(tile: str, board: ChessBoard) -> Point:
+    pixel_coords = board.chess_tiles[tile].piece_location
+
+    return transform_camera_to_world(pixel_coords)
 
 
-def get_piece_locations(board: ChessBoard):  # returns a mapping from
+def update_piece_locations(board: ChessBoard) -> None:
     call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
     matches = call_piece_service()
-    for tile in board.chess_tiles:
+    for tile_name, tile in board.chess_tiles.items():
+        tile.has_piece = False  # assume no tiles are occupied by a piece
         for i in len(matches.x):
-            if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50) :
+            if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50):
                 tile.piece = matches.name[i]
+                tile.piece_location.x = tile.x
+                tile.piece_location.y = tile.y
+                tile.has_piece = True
+
+# simply updates all tiles on the board with their corresponding (x, y) coordinates
 
 
-# returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
-def get_tile_locations(board: ChessBoard):
-    call_board_service = rospy.ServiceProxy("board_service", BoardString)
+def update_tile_locations(board: ChessBoard) -> None:
+    try:
+        call_board_service = rospy.ServiceProxy("board_service", BoardString)
 
-    resp = call_board_service()
+        resp = call_board_service().output
 
-    dictionary_mapping = json.loads(resp)
+        # consits of a dicitions with mappings of tile names to their pixel coords in a tuple
+        dictionary_mapping = json.loads(resp)
 
-    # looks like: {"A1" : [(0, 0), (2, 2)]}
-    for currTile in dictionary_mapping:
+        for currTile in dictionary_mapping:
+            bottom_left_corner = dictionary_mapping[currTile][0]
+            top_right_corner = dictionary_mapping[currTile][1]
 
-        bottom_left_corner = dictionary_mapping[currTile][0]
+            center_x_coord = (bottom_left_corner[0] + top_right_corner[0]) / 2
+            center_y_coord = (bottom_left_corner[1] + top_right_corner[1]) / 2
 
-        top_right_corner = dictionary_mapping[currTile][1]
+            board.chess_tiles[currTile].x = center_x_coord
+            board.chess_tiles[currTile].y = center_y_coord
 
-        center_x_coord = (bottom_left_corner[0] + top_right_corner[0]) / 2
+            # Create the TransformPoint request
+            # point_request = Point()
 
-        center_y_coord = (bottom_left_corner[1] + top_right_corner[1]) / 2
+            # point_request.x = center_x_coord
+            # point_request.y = center_y_coord
+            # point_request.z = 1.0  # Hardcoded depth
 
-        board.chess_tiles[currTile].x = center_x_coord
-        board.chess_tiles[currTile].y = center_y_coord
+            # # Call the transform_coordinates service
 
-    return
+            # # return type is of Point.transformed_point (consists of x, y, z)
+            # real_coords = transform_service(point_request)
 
-
-# Arguments are of type Point() -> doesn't return anything
-
-
-def pickup_and_place_piece(from_tile, to_tile):
-
-    # start_goal and end goal are both of type Point()
-    start_goal = transform_point_to_base(from_tile)
-    end_goal = transform_point_to_base(to_tile)
-
-    pickup_and_place(start_goal, end_goal)
-
-    return
+            # # Print the transformed point in the base frame
+            # print(f"Transformed point for tile {currTile}: x={real_coords.transformed_point.x}, "
+            #       f"y={real_coords.transformed_point.y}, z={real_coords.transformed_point.z}")
+    except:
+        return
 
 
 def main():
@@ -100,17 +132,20 @@ def main():
     # stockfish = Stockfish(stockfish_path)  # init Stockfish
     # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
-    tiles = get_tile_locations(board)
-    pieces = get_piece_locations(board)
-    board.create_board(tiles, pieces)
+    board.create_board()
+    update_tile_locations(board)
+    update_piece_locations(board)
 
     drop_off = (0.722, -0.013)  # piece drop off spot (after taking)
 
     gaming = True
     while gaming:
-        next_move = get_next_move(get_board_state()) #passes FEN of board state into stockfish, gets next move
+        update_tile_locations(board)
+        update_piece_locations(board)
+        # passes FEN of board state into stockfish, gets next move
+        next_move = get_next_move(get_board_state())
         capture = False
-        if next_move is None: #probably needs a better game state
+        if next_move is None:  # probably needs a better game state
             gaming = False
             break
 
@@ -119,8 +154,8 @@ def main():
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
         # accesses board hashmap and grabs tile xy
-        place_tile_coords = (
-            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
+        place_tile_coords = (Point(
+            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y, 0))
 
         if board.chess[place_tile].piece is not None:  # Taking a piece
             capture = True
