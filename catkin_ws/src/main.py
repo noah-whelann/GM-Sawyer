@@ -18,6 +18,7 @@ from geometry_msgs.msg import Point, PointStamped
 from move_arm.src.pickup_integ import pickup_and_place
 import rospkg
 import requests
+import json
 # from chess_tracking.src.transform_coordinates import transform_point_to_base
 from chess_tracking.srv import BoardString
 from chess_tracking.srv import PieceMatches
@@ -40,13 +41,24 @@ def get_board_state():  # return fen of current board state
 # should return a Point() in terms of pixels
 
 
-def transform_camera_to_world():
+def transform_camera_to_world(pixel_coords: Point) -> Point:
     transform_service = rospy.ServiceProxy("transform_camera_coordinates")
+
+    # first turn pixel_coords into it's respective data type: "TransformPoint"
+    request = TransformPoint()
+    request.input_point.x = pixel_coords.x
+    request.input_point.y = pixel_coords.y
+    request.input_point.z = pixel_coords.z
+
+    # real_coords is of type TransformPoint
+    real_coords = transform_service(request)
+
+    # exract the point from TransformPoint datatype
+    return real_coords.transformed_point
 
 
 def get_piece_location_on_tile(tile: str):
     return
-
 
 def get_piece_locations(board: ChessBoard):  # returns a mapping from
     call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
@@ -59,27 +71,43 @@ def get_piece_locations(board: ChessBoard):  # returns a mapping from
 
 # returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
 def get_tile_locations(board: ChessBoard):
-    call_board_service = rospy.ServiceProxy("board_service", BoardString)
+    try:
+        call_board_service = rospy.ServiceProxy("board_service", BoardString)
+        transform_service = rospy.ServiceProxy(
+            'transform_coordinates', TransformPoint)
 
-    resp = call_board_service()
+        resp = call_board_service().output
 
-    dictionary_mapping = json.loads(resp)
+        dictionary_mapping = json.loads(resp)
 
-    # looks like: {"A1" : [(0, 0), (2, 2)]}
-    for currTile in dictionary_mapping:
+        # Example dictionary format: {"A1": [(0, 0), (2, 2)]}
+        for currTile in dictionary_mapping:
+            bottom_left_corner = dictionary_mapping[currTile][0]
+            top_right_corner = dictionary_mapping[currTile][1]
 
-        bottom_left_corner = dictionary_mapping[currTile][0]
+            center_x_coord = (bottom_left_corner[0] + top_right_corner[0]) / 2
+            center_y_coord = (bottom_left_corner[1] + top_right_corner[1]) / 2
 
-        top_right_corner = dictionary_mapping[currTile][1]
+            board.chess_tiles[currTile].x = center_x_coord
+            board.chess_tiles[currTile].y = center_y_coord
 
-        center_x_coord = (bottom_left_corner[0] + top_right_corner[0]) / 2
+            # Create the TransformPoint request
+            point_request = Point()
 
-        center_y_coord = (bottom_left_corner[1] + top_right_corner[1]) / 2
+            point_request.x = center_x_coord
+            point_request.y = center_y_coord
+            point_request.z = 1.0  # Hardcoded depth
 
-        board.chess_tiles[currTile].x = center_x_coord
-        board.chess_tiles[currTile].y = center_y_coord
+            # Call the transform_coordinates service
 
-    return
+            # return type is of Point.transformed_point (consists of x, y, z)
+            real_coords = transform_service(point_request)
+
+            # Print the transformed point in the base frame
+            print(f"Transformed point for tile {currTile}: x={real_coords.transformed_point.x}, "
+                  f"y={real_coords.transformed_point.y}, z={real_coords.transformed_point.z}")
+    except:
+        return
 
 
 # Arguments are of type Point() -> doesn't return anything
