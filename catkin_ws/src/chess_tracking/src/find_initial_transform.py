@@ -24,6 +24,8 @@ and now we have the exact translation and rotation of the webcam
 '''
 
 # will publish static transform on tf tree with parent_frame->child_frame
+
+
 def publish_static_transform(translation, rotation, child_frame, parent_frame):
     broadcaster = StaticTransformBroadcaster()
     ts = TransformStamped()
@@ -37,7 +39,7 @@ def publish_static_transform(translation, rotation, child_frame, parent_frame):
     ts.transform.rotation.y = rotation[1]
     ts.transform.rotation.z = rotation[2]
     ts.transform.rotation.w = rotation[3]
-    broadcaster.sendTransform(t)
+    broadcaster.sendTransform(ts)
     rospy.loginfo(f"Published static transform: {
                   parent_frame} -> {child_frame}")
 
@@ -65,6 +67,8 @@ def invert_transform(trans, rot):
     return translation_from_matrix(inv), quaternion_from_matrix(inv)
 
 # given trans_ab, rot_ab, trans_bc, rot_bc -> returns trans_ac and rot_ac
+
+
 def combine_transforms(trans_ab, rot_ab, trans_bc, rot_bc):
     parent_matrix = concatenate_matrices(
         translation_matrix(trans_ab), quaternion_matrix(rot_ab))
