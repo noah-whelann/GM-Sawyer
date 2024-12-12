@@ -19,6 +19,7 @@ class Services:
 
     def camera_callback(self, msg):
         self.camera_msg = msg
+        print(self.camera_msg)
 
     def screenshot_callback(self, inputs):
         return self.camera_msg

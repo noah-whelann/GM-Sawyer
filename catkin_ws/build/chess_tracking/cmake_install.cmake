@@ -45,6 +45,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/chess_tracking/srv" TYPE FILE FILES
     "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv"
     "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv"
+    "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
     )
 endif()
 

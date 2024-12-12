@@ -13,7 +13,6 @@ from chess_tracking.srv import BoardString
 
 import json
 
-
 class BoardService:
     def __init__(self):
         self.camera_msg = None

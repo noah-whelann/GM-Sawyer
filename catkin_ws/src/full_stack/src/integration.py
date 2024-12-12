@@ -5,6 +5,7 @@ import intera_interface
 
 from moveit_commander import MoveGroupCommander
 from moveit_msgs.srv import GetPositionIK, GetPositionIKRequest
+from chess_tracking.srv import Screenshot
 
 import numpy as np
 
@@ -38,7 +39,7 @@ class CLI:
             "right_j6": 1.7
         }
 
-        self.commander = MoveGroupCommander("right_arm")
+        self.commander = MoveGroupCommander("right_arm", wait_for_servers=10)
 
         self.limb = intera_interface.Limb("right")
 
@@ -74,10 +75,6 @@ class CLI:
     def run(self):
         self.calibrate()
 
-        self.arm_to_tile("a3")
-
-        return
-
         while self.running:
             if input("Press Enter to Calculate Board State. Press q to quit. \n") == "q":
                 self.running = False
@@ -86,37 +83,37 @@ class CLI:
 
                 rospy.wait_for_service('screenshot_service')
 
-                try:
-                    get_screenshot = rospy.ServiceProxy('screenshot_service')
-                    imgmsg = get_screenshot().img
+                # try:
+                get_screenshot = rospy.ServiceProxy('screenshot_service', Screenshot)
+                imgmsg = get_screenshot().img
 
-                    self.update_board(imgmsg)
+                self.update_board(imgmsg)
 
-                    fen_string = self.get_fen_string()
-                    header = {"fen": fen_string}
+                fen_string = self.get_fen_string()
+                header = {"fen": fen_string}
 
-                    print("Making a request to Chess API...")
+                print("Making a request to Chess API...")
 
-                    resp = requests.post("https://chess-api.com/v1", json=header)
-                    resp.raise_for_status()
+                resp = requests.post("https://chess-api.com/v1", json=header)
+                resp.raise_for_status()
 
-                    data = json.loads(resp.text)
+                data = json.loads(resp.text)
 
-                    from_tile = data["from"]
-                    to_tile = data["to"]
+                from_tile = data["from"]
+                to_tile = data["to"]
 
-                    if input(f"Begin picking up tile at {from_tile}? (y/n)") == "y":
-                        self.pick_up_tile(from_tile)
-                    else:
-                        raise Exception("Aborting process")
-                    
-                    if input(f"Begin placing tile at {to_tile}? (y/n)") == "y":
-                        self.pick_up_tile(from_tile)
-                    else:
-                        raise Exception("Aborting process")
+                if input(f"Begin picking up tile at {from_tile}? (y/n)") == "y":
+                    self.pick_up_tile(from_tile)
+                else:
+                    raise Exception("Aborting process")
+                
+                if input(f"Begin placing tile at {to_tile}? (y/n)") == "y":
+                    self.pick_up_tile(from_tile)
+                else:
+                    raise Exception("Aborting process")
 
-                except Exception as e:
-                    print(e)
+                # except Exception as e:
+                #     print(e)
 
     def calibrate(self):
         # Tuck the Sawyer Arm
@@ -235,8 +232,8 @@ class CLI:
     ### BOARD STATE ###
     ###################
     def update_board(self, imgmsg):
-        tile_to_coords = self.board_updater.get_tile_coords()
-        piece_to_coords = self.board_updater.get_piece_coords()
+        tile_to_coords = self.board_updater.get_tile_coords(imgmsg)
+        piece_to_coords = self.board_updater.get_piece_coords(imgmsg)
 
         curr_map = {}
 

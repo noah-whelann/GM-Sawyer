@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "chess_tracking: 1 messages, 2 services")
+message(STATUS "chess_tracking: 1 messages, 3 services")
 
-set(MSG_I_FLAGS "-Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Ichess_tracking:/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -32,6 +32,11 @@ add_custom_target(_chess_tracking_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "chess_tracking" "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" "geometry_msgs/Point"
 )
 
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
+add_custom_target(_chess_tracking_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "chess_tracking" "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" "std_msgs/Header:sensor_msgs/Image"
+)
+
 #
 #  langs = gencpp;geneus;genlisp;gennodejs;genpy
 #
@@ -58,6 +63,12 @@ _generate_srv_cpp(chess_tracking
   "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/chess_tracking
 )
+_generate_srv_cpp(chess_tracking
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/chess_tracking
+)
 
 ### Generating Module File
 _generate_module_cpp(chess_tracking
@@ -76,6 +87,8 @@ add_dependencies(chess_tracking_generate_messages_cpp _chess_tracking_generate_m
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_cpp _chess_tracking_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" NAME_WE)
+add_dependencies(chess_tracking_generate_messages_cpp _chess_tracking_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_cpp _chess_tracking_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -107,6 +120,12 @@ _generate_srv_eus(chess_tracking
   "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/chess_tracking
 )
+_generate_srv_eus(chess_tracking
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/chess_tracking
+)
 
 ### Generating Module File
 _generate_module_eus(chess_tracking
@@ -125,6 +144,8 @@ add_dependencies(chess_tracking_generate_messages_eus _chess_tracking_generate_m
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_eus _chess_tracking_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" NAME_WE)
+add_dependencies(chess_tracking_generate_messages_eus _chess_tracking_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_eus _chess_tracking_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -156,6 +177,12 @@ _generate_srv_lisp(chess_tracking
   "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/chess_tracking
 )
+_generate_srv_lisp(chess_tracking
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/chess_tracking
+)
 
 ### Generating Module File
 _generate_module_lisp(chess_tracking
@@ -174,6 +201,8 @@ add_dependencies(chess_tracking_generate_messages_lisp _chess_tracking_generate_
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_lisp _chess_tracking_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" NAME_WE)
+add_dependencies(chess_tracking_generate_messages_lisp _chess_tracking_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_lisp _chess_tracking_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -205,6 +234,12 @@ _generate_srv_nodejs(chess_tracking
   "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/chess_tracking
 )
+_generate_srv_nodejs(chess_tracking
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/chess_tracking
+)
 
 ### Generating Module File
 _generate_module_nodejs(chess_tracking
@@ -223,6 +258,8 @@ add_dependencies(chess_tracking_generate_messages_nodejs _chess_tracking_generat
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_nodejs _chess_tracking_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" NAME_WE)
+add_dependencies(chess_tracking_generate_messages_nodejs _chess_tracking_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_nodejs _chess_tracking_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -254,6 +291,12 @@ _generate_srv_py(chess_tracking
   "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/chess_tracking
 )
+_generate_srv_py(chess_tracking
+  "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/chess_tracking
+)
 
 ### Generating Module File
 _generate_module_py(chess_tracking
@@ -272,6 +315,8 @@ add_dependencies(chess_tracking_generate_messages_py _chess_tracking_generate_me
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/BoardString.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_py _chess_tracking_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/TransformPoint.srv" NAME_WE)
+add_dependencies(chess_tracking_generate_messages_py _chess_tracking_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/src/chess_tracking/srv/Screenshot.srv" NAME_WE)
 add_dependencies(chess_tracking_generate_messages_py _chess_tracking_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -293,6 +338,9 @@ endif()
 if(TARGET geometry_msgs_generate_messages_cpp)
   add_dependencies(chess_tracking_generate_messages_cpp geometry_msgs_generate_messages_cpp)
 endif()
+if(TARGET sensor_msgs_generate_messages_cpp)
+  add_dependencies(chess_tracking_generate_messages_cpp sensor_msgs_generate_messages_cpp)
+endif()
 if(TARGET std_msgs_generate_messages_cpp)
   add_dependencies(chess_tracking_generate_messages_cpp std_msgs_generate_messages_cpp)
 endif()
@@ -306,6 +354,9 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ch
 endif()
 if(TARGET geometry_msgs_generate_messages_eus)
   add_dependencies(chess_tracking_generate_messages_eus geometry_msgs_generate_messages_eus)
+endif()
+if(TARGET sensor_msgs_generate_messages_eus)
+  add_dependencies(chess_tracking_generate_messages_eus sensor_msgs_generate_messages_eus)
 endif()
 if(TARGET std_msgs_generate_messages_eus)
   add_dependencies(chess_tracking_generate_messages_eus std_msgs_generate_messages_eus)
@@ -321,6 +372,9 @@ endif()
 if(TARGET geometry_msgs_generate_messages_lisp)
   add_dependencies(chess_tracking_generate_messages_lisp geometry_msgs_generate_messages_lisp)
 endif()
+if(TARGET sensor_msgs_generate_messages_lisp)
+  add_dependencies(chess_tracking_generate_messages_lisp sensor_msgs_generate_messages_lisp)
+endif()
 if(TARGET std_msgs_generate_messages_lisp)
   add_dependencies(chess_tracking_generate_messages_lisp std_msgs_generate_messages_lisp)
 endif()
@@ -334,6 +388,9 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET geometry_msgs_generate_messages_nodejs)
   add_dependencies(chess_tracking_generate_messages_nodejs geometry_msgs_generate_messages_nodejs)
+endif()
+if(TARGET sensor_msgs_generate_messages_nodejs)
+  add_dependencies(chess_tracking_generate_messages_nodejs sensor_msgs_generate_messages_nodejs)
 endif()
 if(TARGET std_msgs_generate_messages_nodejs)
   add_dependencies(chess_tracking_generate_messages_nodejs std_msgs_generate_messages_nodejs)
@@ -349,6 +406,9 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ches
 endif()
 if(TARGET geometry_msgs_generate_messages_py)
   add_dependencies(chess_tracking_generate_messages_py geometry_msgs_generate_messages_py)
+endif()
+if(TARGET sensor_msgs_generate_messages_py)
+  add_dependencies(chess_tracking_generate_messages_py sensor_msgs_generate_messages_py)
 endif()
 if(TARGET std_msgs_generate_messages_py)
   add_dependencies(chess_tracking_generate_messages_py std_msgs_generate_messages_py)
