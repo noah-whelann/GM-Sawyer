@@ -56,11 +56,13 @@ def transform_camera_to_world(pixel_coords: Point) -> Point:
     return real_coords.transformed_point
 
 
-def get_piece_location_on_tile(tile: str):
-    return
+def get_piece_location_on_tile(tile: str, board: ChessBoard) -> Point:
+    pixel_coords = board.chess_tiles[tile].piece_location
+
+    return transform_camera_to_world(pixel_coords)
 
 
-def get_piece_locations(board: ChessBoard):  # returns a mapping from
+def update_piece_locations(board: ChessBoard):  # returns a mapping from
     call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
     matches = call_piece_service()
     for tile in board.chess_tiles:
@@ -69,11 +71,12 @@ def get_piece_locations(board: ChessBoard):  # returns a mapping from
                 tile.piece = matches.name[i]
                 tile.piece_location.x = tile.x
                 tile.piece_location.y = tile.y
+                tile.has_piece = True
 
 # simply updates all tiles on the board with their corresponding (x, y) coordinates
 
 
-def get_tile_locations(board: ChessBoard):
+def update_tile_locations(board: ChessBoard):
     try:
         call_board_service = rospy.ServiceProxy("board_service", BoardString)
 
@@ -123,14 +126,16 @@ def main():
     # stockfish = Stockfish(stockfish_path)  # init Stockfish
     # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
-    tiles = get_tile_locations(board)
-    pieces = get_piece_locations(board)
-    board.create_board(tiles, pieces)
+    board.create_board()
+    update_tile_locations(board)
+    update_piece_locations(board)
 
     drop_off = (0.722, -0.013)  # piece drop off spot (after taking)
 
     gaming = True
     while gaming:
+        update_tile_locations(board)
+        update_piece_locations(board)
         # passes FEN of board state into stockfish, gets next move
         next_move = get_next_move(get_board_state())
         capture = False
