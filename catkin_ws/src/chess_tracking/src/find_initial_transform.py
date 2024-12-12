@@ -36,8 +36,6 @@ def publish_static_transform(translation, rotation, child_frame, parent_frame):
     )
 
 # returns translation and rotation from parent_frame to child_frame -> trans_ab, rot_ab gives child_frame in terms of parent_frame
-
-
 def get_transform(listener, parent_frame, child_frame):
     try:
         listener.waitForTransform(
@@ -52,7 +50,6 @@ def get_transform(listener, parent_frame, child_frame):
                      parent_frame} to {child_frame}: {e}")
         return None, None
 
-
 def invert_transform(trans, rot):
     mat = concatenate_matrices(
         translation_matrix(trans), quaternion_matrix(rot))
@@ -60,8 +57,6 @@ def invert_transform(trans, rot):
     return translation_from_matrix(inv), quaternion_from_matrix(inv)
 
 # given trans_ab, rot_ab, trans_bc, rot_bc -> returns trans_ac and rot_ac
-
-
 def combine_transforms(parent_trans, parent_rot, child_trans, child_rot):
     # Convert to transformation matrices
     parent_matrix = concatenate_matrices(translation_matrix(
