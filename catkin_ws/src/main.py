@@ -21,19 +21,27 @@ import requests
 # from chess_tracking.src.transform_coordinates import transform_point_to_base
 from chess_tracking.srv import BoardString
 from chess_tracking.srv import PieceMatches
+from chess_tracking.srv import TransformPoint
 
 rospy.wait_for_service("board_service")
 rospy.wait_for_service("match_pieces")
+rospy.wait_for_service("transform_camera_coordinates")
 
 
 def get_next_move(fen):
     header = {fen}
     r = requests.post("https://chess-api.com/v1", json=header)
-    return r.text #modify so it only returns the next move
+    return r.text  # modify so it only returns the next move
+
+
 def get_board_state():  # return fen of current board state
     return
 
 # should return a Point() in terms of pixels
+
+
+def transform_camera_to_world():
+    transform_service = rospy.ServiceProxy("transform_camera_coordinates")
 
 
 def get_piece_location_on_tile(tile: str):
@@ -45,7 +53,7 @@ def get_piece_locations(board: ChessBoard):  # returns a mapping from
     matches = call_piece_service()
     for tile in board.chess_tiles:
         for i in len(matches.x):
-            if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50) :
+            if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50):
                 tile.piece = matches.name[i]
 
 
@@ -108,9 +116,10 @@ def main():
 
     gaming = True
     while gaming:
-        next_move = get_next_move(get_board_state()) #passes FEN of board state into stockfish, gets next move
+        # passes FEN of board state into stockfish, gets next move
+        next_move = get_next_move(get_board_state())
         capture = False
-        if next_move is None: #probably needs a better game state
+        if next_move is None:  # probably needs a better game state
             gaming = False
             break
 
