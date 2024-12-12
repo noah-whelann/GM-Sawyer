@@ -23,7 +23,7 @@ rosrun chess_tracking transform_coordinates_service.py
 rosrun chess_tracking board_service.py
 rosrun intera_interface joint_trajectory_action_server.py 
 roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
-
+python3 main.py
 '''
 
 from csv import Error

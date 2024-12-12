@@ -58,7 +58,7 @@ class TransformCoordinatesService:
         z_cam = 1.0  # Assume a normalized depth value for simplicity
 
         point_in_camera = PointStamped()
-        point_in_camera.header.frame_id = "logitech_c920_fixed"
+        point_in_camera.header.frame_id = "logitech_c920"
         point_in_camera.header.stamp = rospy.Time.now()
         point_in_camera.point.x = x_cam
         point_in_camera.point.y = y_cam
