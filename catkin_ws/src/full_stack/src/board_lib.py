@@ -170,9 +170,6 @@ class BoardUpdater:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         matches = self.find_chess_pieces(image)
-        pieces_to_coords = {}
-        for match in matches:
-            pieces_to_coords[match["piece"]] = match["location"]
 
         processed_image = self.draw_matches(image, matches)
 
@@ -180,7 +177,7 @@ class BoardUpdater:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-        return pieces_to_coords
+        return matches
 
     def find_chess_pieces(self, image, distance_threshold=50, angles=range(-16, 16, 2)):
         """

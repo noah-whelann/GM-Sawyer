@@ -65,6 +65,9 @@ class CLI:
         ### BOARD PROCESSING CONFIGURATIONS
 
         self.tile_to_piece = {}
+        for alpha in range(ord('a'), ord('i')):
+            for num in range(1, 9):
+                self.tile_to_piece[f"{chr(alpha)}{num}"] = ""
         
         self.board_updater = BoardUpdater()
 
@@ -86,7 +89,7 @@ class CLI:
                     self.update_board(imgmsg)
 
                     fen_string = self.get_fen_string()
-                    header = {fen_string}
+                    header = {"fen": fen_string}
 
                     print("Making a request to Chess API...")
 
@@ -94,8 +97,6 @@ class CLI:
                     resp.raise_for_status()
 
                     data = json.loads(resp.text)
-                    
-                    best_move = data['move']
 
                     from_tile = data["from"]
                     to_tile = data["to"]
@@ -235,8 +236,9 @@ class CLI:
 
         curr_map = {}
 
-        for piece_name in piece_to_coords:
-            piece_coords = piece_to_coords[piece_name]
+        for elem in piece_to_coords:
+            piece_name = elem["piece"]
+            piece_coords = elem["location"]
 
             for tile_name in tile_to_coords:
                 tile_coords = tile_to_coords[tile_name]
@@ -245,6 +247,11 @@ class CLI:
                 bottom_left_y = tile_coords[0][1]
                 top_right_x = tile_coords[1][0]
                 top_right_y = tile_coords[1][1]
+
+                if bottom_left_x > top_right_x:
+                    bottom_left_x, top_right_x = top_right_x, bottom_left_x
+                if bottom_left_y > top_right_y:
+                    bottom_left_y, top_right_y = top_right_y, bottom_left_y
 
                 if bottom_left_x <= piece_coords[0] <= top_right_x and bottom_left_y <= piece_coords[1] <= top_right_y:
                     curr_map[tile_name] = piece_name
@@ -260,31 +267,33 @@ class CLI:
         fen_string = ""
         index = 0
         conseq_empty_space = 0
-        for tile_name in sorted(self.tile_to_piece.keys()):
-            if index == 8:
-                index = 0
-                if conseq_empty_space > 0:
-                    fen_string += str(conseq_empty_space)
-                    conseq_empty_space = 0
-                fen_string += "/"
-                continue
+        for num in range(8, 0, -1):
+            for alpha in range(ord('a'), ord('i')):
+                tile_name = f"{chr(alpha)}{num}"
 
-            piece_name = self.tile_to_piece[tile_name]
+                if index == 8:
+                    index = 0
+                    if conseq_empty_space > 0:
+                        fen_string += str(conseq_empty_space)
+                        conseq_empty_space = 0
+                    fen_string += "/"
 
-            if piece_name == "":
-                conseq_empty_space += 1
-            else:
-                if conseq_empty_space > 0:
-                    fen_string += str(conseq_empty_space)
-                    conseq_empty_space = 0
-                fen_string += piece_name
+                piece_name = self.tile_to_piece[tile_name]
 
-            index += 1
+                if piece_name == "":
+                    conseq_empty_space += 1
+                else:
+                    if conseq_empty_space > 0:
+                        fen_string += str(conseq_empty_space)
+                        conseq_empty_space = 0
+                    fen_string += piece_name
+
+                index += 1
 
         if conseq_empty_space > 0:
             fen_string += str(conseq_empty_space)
         
-        return fen_string + " w - - 0 1"
+        return fen_string + " b - - 0 1"
 
 
 
