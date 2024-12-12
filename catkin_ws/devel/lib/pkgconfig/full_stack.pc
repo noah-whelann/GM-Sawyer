@@ -1,0 +1,8 @@
+prefix=/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/devel
+
+Name: full_stack
+Description: Description of full_stack
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

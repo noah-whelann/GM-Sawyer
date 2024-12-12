@@ -86,6 +86,14 @@
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking/CMakeFiles/chess_tracking_gencpp.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking/CMakeFiles/chess_tracking_generate_messages_cpp.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/chess_tracking/CMakeFiles/chess_tracking_generate_messages_py.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/install/strip.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/install/local.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/install.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/list_install_components.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/rebuild_cache.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/edit_cache.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/test.dir
+/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/full_stack/CMakeFiles/_catkin_empty_exported_target.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ar_tag_tracking/CMakeFiles/install/strip.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ar_tag_tracking/CMakeFiles/install/local.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/ar_tag_tracking/CMakeFiles/install.dir
@@ -261,7 +269,6 @@
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/rebuild_cache.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/edit_cache.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/test.dir
-/home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/move_arm/CMakeFiles/_catkin_empty_exported_target.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/list_install_components.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/rebuild_cache.dir
 /home/cc/ee106a/fa24/class/ee106a-aho/GM-Sawyer/catkin_ws/build/planning/CMakeFiles/baxter_interface_gencfg.dir
