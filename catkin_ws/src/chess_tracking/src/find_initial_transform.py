@@ -7,7 +7,7 @@ from tf.transformations import quaternion_multiply, quaternion_inverse, translat
 
 # will publish static transform on tf tree with parent_frame->child_frame
 def publish_static_transform(translation, rotation, child_frame, parent_frame):
-    static_broadcaster = tf.TransformBroadcaster()
+    static_broadcaster = tf.StaticTransformBroadcaster()
     rospy.loginfo(f"Publishing static transform: {
                   child_frame} -> {parent_frame}")
     static_broadcaster.sendTransform(
@@ -63,33 +63,50 @@ def calculate_full_camera_transform():
 
     # If ar_marker_0 is in view of the c920 -> it will be published on the TF tree
     # grab the ar marker, relative to the webcam
-    trans_ar_c920, rot_ar_c920 = get_transform(
+    
+
+    trans_ar_c920_time_zero, rot_ar_c920_time_zero = get_transform(
         listener, "ar_marker_0", "logitech_c920")
-    if trans_ar_c920 is None:
+    if trans_ar_c920_time_zero is None:
         rospy.logerr("Failed to get AR tag relative to Logitech C920.")
         return
+    
+    trans_base_right_hand_camera_time_zero, rot_base_right_hand_camera_time_zero = get_transform(
+        listener, "base", "right_hand_camera")
+    if trans_ar_c920_time_zero is None:
+        rospy.logerr("Failed to get AR tag relative to Logitech C920.")
+        return
+    
+
 
     rospy.loginfo(
-        "move ar tag in view of the wrist camera (right_hand_camera).")
+        "move ar tag in view of the right_hand_camera  (right_hand_camera).")
     input("press enter when in view")
 
+
     # do the same here, grabbing the ar marker relative to the right hand camera
-    trans_wrist_ar, rot_wrist_ar = get_transform(
+    trans_right_hand_camera_ar_time_new, rot_right_hand_camera_ar_time_new = get_transform(
         listener, "right_hand_camera", "ar_marker_0")
-    if trans_wrist_ar is None:
-        rospy.logerr("Failed to get AR tag relative to wrist camera.")
+    if trans_right_hand_camera_ar_time_new is None:
+        rospy.logerr("Failed to get AR tag relative to right_hand_camera.")
         return
 
-    trans_base_wrist, rot_base_wrist = get_transform(
+    trans_base_right_hand_camera_time_new, rot_base_right_hand_camera_time_new = get_transform(
         listener, "robot_base", "right_hand_camera")
-    if trans_base_wrist is None:
+    if trans_base_right_hand_camera_time_new is None:
         rospy.logerr(
-            "Failed to get wrist camera transform relative to robot base.")
+            "Failed to get right_hand_camera transform relative to robot base.")
         return
 
-    # base->wrist->ar -> ar relative to the base
+    # base->right_hand_camera->ar 
+
+    #base->right_gripper_base->right_hand_camera->ar_marker_0
+
+
+
+
     trans_base_ar, rot_base_ar = combine_transforms(
-        trans_base_wrist, rot_base_wrist, trans_wrist_ar, rot_wrist_ar)
+        trans_base_right_hand_camera, rot_base_right_hand_camera, trans_right_hand_camera_ar, rot_right_hand_camera_ar)
     rospy.loginfo(f"AR tag transform relative to robot base: {
                   trans_base_ar}, {rot_base_ar}")
 
@@ -97,11 +114,16 @@ def calculate_full_camera_transform():
         "Calculating Logitech C920 transform relative to robot base...")
 
     # base->ar->c920
+    # 
+
+    #right_gripper_base -> c920
 
     trans_base_c920, rot_base_c920 = combine_transforms(
         trans_base_ar, rot_base_ar, trans_ar_c920, rot_ar_c920)
     rospy.loginfo(f"Logitech relative to robot base: {
                   trans_base_c920}, {rot_base_c920}")
+    
+    trans_right_gripper_base_c920, rot_right_gripper_base_c920 = 
 
     # transform from base->logitech will be published as static transform
     publish_static_transform(
@@ -116,5 +138,7 @@ def calculate_full_camera_transform():
 if __name__ == "__main__":
     try:
         calculate_full_camera_transform()
+
+
     except rospy.ROSInterruptException:
         pass
