@@ -36,9 +36,8 @@ def get_next_move(fen):
 
 
 def get_board_state():  # return fen of current board state
-    return
 
-# should return a Point() in terms of pixels
+    return
 
 
 def transform_camera_to_world(pixel_coords: Point) -> Point:
@@ -60,6 +59,7 @@ def transform_camera_to_world(pixel_coords: Point) -> Point:
 def get_piece_location_on_tile(tile: str):
     return
 
+
 def get_piece_locations(board: ChessBoard):  # returns a mapping from
     call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
     matches = call_piece_service()
@@ -67,20 +67,21 @@ def get_piece_locations(board: ChessBoard):  # returns a mapping from
         for i in len(matches.x):
             if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50):
                 tile.piece = matches.name[i]
+                tile.piece_location.x = tile.x
+                tile.piece_location.y = tile.y
+
+# simply updates all tiles on the board with their corresponding (x, y) coordinates
 
 
-# returns a list of tuples, each tuple is for a tile, in order from a1 -> h8
 def get_tile_locations(board: ChessBoard):
     try:
         call_board_service = rospy.ServiceProxy("board_service", BoardString)
-        transform_service = rospy.ServiceProxy(
-            'transform_coordinates', TransformPoint)
 
         resp = call_board_service().output
 
+        # consits of a dicitions with mappings of tile names to their pixel coords in a tuple
         dictionary_mapping = json.loads(resp)
 
-        # Example dictionary format: {"A1": [(0, 0), (2, 2)]}
         for currTile in dictionary_mapping:
             bottom_left_corner = dictionary_mapping[currTile][0]
             top_right_corner = dictionary_mapping[currTile][1]
@@ -92,36 +93,22 @@ def get_tile_locations(board: ChessBoard):
             board.chess_tiles[currTile].y = center_y_coord
 
             # Create the TransformPoint request
-            point_request = Point()
+            # point_request = Point()
 
-            point_request.x = center_x_coord
-            point_request.y = center_y_coord
-            point_request.z = 1.0  # Hardcoded depth
+            # point_request.x = center_x_coord
+            # point_request.y = center_y_coord
+            # point_request.z = 1.0  # Hardcoded depth
 
-            # Call the transform_coordinates service
+            # # Call the transform_coordinates service
 
-            # return type is of Point.transformed_point (consists of x, y, z)
-            real_coords = transform_service(point_request)
+            # # return type is of Point.transformed_point (consists of x, y, z)
+            # real_coords = transform_service(point_request)
 
-            # Print the transformed point in the base frame
-            print(f"Transformed point for tile {currTile}: x={real_coords.transformed_point.x}, "
-                  f"y={real_coords.transformed_point.y}, z={real_coords.transformed_point.z}")
+            # # Print the transformed point in the base frame
+            # print(f"Transformed point for tile {currTile}: x={real_coords.transformed_point.x}, "
+            #       f"y={real_coords.transformed_point.y}, z={real_coords.transformed_point.z}")
     except:
         return
-
-
-# Arguments are of type Point() -> doesn't return anything
-
-
-def pickup_and_place_piece(from_tile, to_tile):
-
-    # start_goal and end goal are both of type Point()
-    start_goal = transform_point_to_base(from_tile)
-    end_goal = transform_point_to_base(to_tile)
-
-    pickup_and_place(start_goal, end_goal)
-
-    return
 
 
 def main():
