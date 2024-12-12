@@ -245,6 +245,8 @@ class BoardUpdater:
         best_matches = []
         for future in concurrent.futures.as_completed(futures):
             best_matches.extend(future.result())
+        
+        return best_matches
 
     def rotate_image(self, image, angle):
         """
