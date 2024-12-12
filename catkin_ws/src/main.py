@@ -31,11 +31,16 @@ rospy.wait_for_service("transform_camera_coordinates")
 
 def get_next_move(fen):
     header = {fen}
-    r = requests.post("https://chess-api.com/v1", json=header)
-    return r.text  # modify so it only returns the next move
+    response = requests.post("https://chess-api.com/v1", json=header)
+    response.raise_for_status() # check for error
 
+    data = json.loads(response.text)
 
-def get_board_state():  # return fen of current board state
+    best_move = data['move']
+
+    return best_move
+
+def get_board_state(board: ChessBoard):  # return fen of current board state
 
     return
 
@@ -62,10 +67,11 @@ def get_piece_location_on_tile(tile: str, board: ChessBoard) -> Point:
     return transform_camera_to_world(pixel_coords)
 
 
-def update_piece_locations(board: ChessBoard):  # returns a mapping from
+def update_piece_locations(board: ChessBoard) -> None:
     call_piece_service = rospy.ServiceProxy("match_pieces", PieceMatches)
     matches = call_piece_service()
-    for tile in board.chess_tiles:
+    for tile_name, tile in board.chess_tiles.items():
+        tile.has_piece = False  # assume no tiles are occupied by a piece
         for i in len(matches.x):
             if (np.linalg.norm((tile.x, tile.y) - (matches.x[i], matches.y[i])) <= 50):
                 tile.piece = matches.name[i]
@@ -76,7 +82,7 @@ def update_piece_locations(board: ChessBoard):  # returns a mapping from
 # simply updates all tiles on the board with their corresponding (x, y) coordinates
 
 
-def update_tile_locations(board: ChessBoard):
+def update_tile_locations(board: ChessBoard) -> None:
     try:
         call_board_service = rospy.ServiceProxy("board_service", BoardString)
 
@@ -148,8 +154,8 @@ def main():
 
         pickup_tile_coords = get_piece_location_on_tile(pickup_tile)
         # accesses board hashmap and grabs tile xy
-        place_tile_coords = (
-            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y)
+        place_tile_coords = (Point(
+            board.chess_tiles[place_tile].x, board.chess_tiles[place_tile].y, 0))
 
         if board.chess[place_tile].piece is not None:  # Taking a piece
             capture = True
