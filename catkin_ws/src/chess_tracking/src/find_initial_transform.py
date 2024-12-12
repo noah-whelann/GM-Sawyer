@@ -2,6 +2,8 @@
 
 import rospy
 import tf
+from tf2_ros import StaticTransformBroadcaster
+from geometry_msgs.msg import TransformStamped
 from tf.transformations import quaternion_multiply, quaternion_inverse, translation_matrix, quaternion_matrix, concatenate_matrices, translation_from_matrix, quaternion_from_matrix
 
 # logic for this file:
@@ -9,31 +11,36 @@ from tf.transformations import quaternion_multiply, quaternion_inverse, translat
 Let frame A be the origin of the right_gripper_base while the AR tag is in view of the c920 camera. 
 In frame A: get the transform from AR->c920, right_gripper_base-> base
 move the robot so that the ar tag is now in view of the right_hand_camera 
-Let this new origin of right gripper_base be frame B origin
+Let this new origin of right_gripper_base be frame B origin
 In frame B: get the transform from base->right_gripper_base
-Using base->right_gripper_base in frame b along with frame A
+Using base->right_gripper_base in frame B along with frame A 
 We can compute the transform between Frame A and Frame B
-To get the transform from ar->c920 in frame B, just apply the transformation from Frame A to Frame B that we just got
-While in frame b: get the transform from, right_hand_camera->ar and base->right_hand_camera
-In frame B, compute the transform of Base to c920 using this: base->right_hand_camera * right_hand_camera->ar * ar->c920
+Now to get the transform from ar->c920 in frame B, just apply the transformation from Frame A to Frame B that we computed earlier
+While in frame B: get the transform from right_hand_camera->ar and base->right_hand_camera
+In frame B, compute the transform of base to c920 using this: base->right_hand_camera * right_hand_camera->ar * ar->c920
 Effectively we have the c920 in terms of base just for that one position, but because we know the transform from right_gripper_base->base and base->c920
 We can statically transform the transform from right_gripper_base->c920, anchoring it to follow the right_gripper_base
-and now we have the exact translation and rotation 
+and now we have the exact translation and rotation of the webcam
 '''
-
 
 # will publish static transform on tf tree with parent_frame->child_frame
 def publish_static_transform(translation, rotation, child_frame, parent_frame):
-    static_broadcaster = tf.StaticTransformBroadcaster()
-    rospy.loginfo(f"Publishing static transform: {
-                  child_frame} -> {parent_frame}")
-    static_broadcaster.sendTransform(
-        translation,
-        rotation,
-        rospy.Time.now(),
-        child_frame,
-        parent_frame
-    )
+    broadcaster = StaticTransformBroadcaster()
+    ts = TransformStamped()
+    ts.header.stamp = rospy.Time.now()
+    ts.header.frame_id = parent_frame
+    ts.child_frame_id = child_frame
+    ts.transform.translation.x = translation[0]
+    ts.transform.translation.y = translation[1]
+    ts.transform.translation.z = translation[2]
+    ts.transform.rotation.x = rotation[0]
+    ts.transform.rotation.y = rotation[1]
+    ts.transform.rotation.z = rotation[2]
+    ts.transform.rotation.w = rotation[3]
+    broadcaster.sendTransform(t)
+    rospy.loginfo(f"Published static transform: {
+                  parent_frame} -> {child_frame}")
+
 
 # returns translation and rotation from parent_frame to child_frame -> trans_ab, rot_ab gives child_frame in terms of parent_frame
 def get_transform(listener, parent_frame, child_frame):
@@ -50,6 +57,7 @@ def get_transform(listener, parent_frame, child_frame):
                      parent_frame} to {child_frame}: {e}")
         return None, None
 
+
 def invert_transform(trans, rot):
     mat = concatenate_matrices(
         translation_matrix(trans), quaternion_matrix(rot))
@@ -57,21 +65,16 @@ def invert_transform(trans, rot):
     return translation_from_matrix(inv), quaternion_from_matrix(inv)
 
 # given trans_ab, rot_ab, trans_bc, rot_bc -> returns trans_ac and rot_ac
-def combine_transforms(parent_trans, parent_rot, child_trans, child_rot):
-    # Convert to transformation matrices
-    parent_matrix = concatenate_matrices(translation_matrix(
-        parent_trans), quaternion_matrix(parent_rot))
-    child_matrix = concatenate_matrices(translation_matrix(
-        child_trans), quaternion_matrix(child_rot))
 
-    # Combine transforms
-    combined_matrix = concatenate_matrices(parent_matrix, child_matrix)
 
-    # Extract translation and rotation
-    combined_translation = translation_from_matrix(combined_matrix)
-    combined_rotation = quaternion_from_matrix(combined_matrix)
+def combine_transforms(trans_ab, rot_ab, trans_bc, rot_bc):
+    parent_matrix = concatenate_matrices(
+        translation_matrix(trans_ab), quaternion_matrix(rot_ab))
+    child_matrix = concatenate_matrices(
+        translation_matrix(trans_bc), quaternion_matrix(rot_bc))
+    combined = concatenate_matrices(parent_matrix, child_matrix)
 
-    return combined_translation, combined_rotation
+    return translation_from_matrix(combined), quaternion_from_matrix(combined)
 
 
 def calculate_full_camera_transform():
@@ -154,7 +157,7 @@ def calculate_full_camera_transform():
     publish_static_transform(trans_right_gripper_base_c920, rot_right_gripper_base_c920,
                              "logitech_c920", "right_gripper_base")
 
-    rospy.loginfo("Calibration complete. Static transform published.")
+    rospy.loginfo("Static transform published.")
 
 
 if __name__ == "__main__":
