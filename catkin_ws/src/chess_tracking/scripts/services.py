@@ -3,6 +3,7 @@
 import rospy
 
 from sensor_msgs.msg import Image
+from chess_tracking.srv import Screenshot
 
 class Services:
     def __init__(self):
@@ -12,7 +13,7 @@ class Services:
 
         self.web_cam_sub = rospy.Subscriber("/logitech_c920/image_raw", Image, self.camera_callback)
 
-        self.screenshot = rospy.Service("screenshot_service", Image, self.screenshot_callback)
+        self.screenshot = rospy.Service("screenshot_service", Screenshot, self.screenshot_callback)
 
         rospy.spin()
 

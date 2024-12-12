@@ -54,8 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
-#   Service1.srv
-#   Service2.srv
+#   Screenshot.srv
 # )
 
 ## Generate actions in the 'action' folder
@@ -63,7 +62,7 @@ find_package(catkin REQUIRED COMPONENTS
 #   FILES
 #   Action1.action
 #   Action2.action
-# )
+# )message_
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
@@ -105,13 +104,14 @@ catkin_package(
 #  LIBRARIES full_stack
 #  CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
+  CATKIN_DEPENDS message_runtime
 )
 
 ###########
 ## Build ##
 ###########
 
-## Specify additional locations of header files
+## Specify additional locations of hmessage_eader files
 ## Your package locations should be listed before other locations
 include_directories(
 # include
@@ -158,7 +158,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 # catkin_install_python(PROGRAMS
-#   scripts/my_python_script
+#   scripts/services.py
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 

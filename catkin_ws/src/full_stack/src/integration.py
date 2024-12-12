@@ -44,7 +44,7 @@ class CLI:
 
         self.arm_speeds = {"slow": 0.2, "fast": 0.6}
 
-        self.tip_name = "stp_022312TP99620_tip_1"
+        self.tip_name = "right_gripper_tip"
 
         self.right_gripper = intera_interface.gripper.Gripper("right_gripper")
 
@@ -74,6 +74,10 @@ class CLI:
     def run(self):
         self.calibrate()
 
+        self.arm_to_tile("a3")
+
+        return
+
         while self.running:
             if input("Press Enter to Calculate Board State. Press q to quit. \n") == "q":
                 self.running = False
@@ -84,7 +88,7 @@ class CLI:
 
                 try:
                     get_screenshot = rospy.ServiceProxy('screenshot_service')
-                    imgmsg = get_screenshot()
+                    imgmsg = get_screenshot().img
 
                     self.update_board(imgmsg)
 

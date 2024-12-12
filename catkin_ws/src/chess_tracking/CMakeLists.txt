@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   geometry_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -59,7 +60,7 @@ add_service_files(
   FILES
   BoardString.srv
   TransformPoint.srv
-#   Service2.srv
+  Screenshot.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -73,6 +74,7 @@ add_service_files(
  generate_messages(
    DEPENDENCIES
    geometry_msgs
+   sensor_msgs
    std_msgs  # Or other packages containing msgs
  )
 
