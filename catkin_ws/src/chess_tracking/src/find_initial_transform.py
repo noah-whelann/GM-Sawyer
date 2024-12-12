@@ -4,6 +4,23 @@ import rospy
 import tf
 from tf.transformations import quaternion_multiply, quaternion_inverse, translation_matrix, quaternion_matrix, concatenate_matrices, translation_from_matrix, quaternion_from_matrix
 
+# logic for this file:
+''' 
+Let frame A be the origin of the right_gripper_base while the AR tag is in view of the c920 camera. 
+In frame A: get the transform from AR->c920, right_gripper_base-> base
+move the robot so that the ar tag is now in view of the right_hand_camera 
+Let this new origin of right gripper_base be frame B origin
+In frame B: get the transform from base->right_gripper_base
+Using base->right_gripper_base in frame b along with frame A
+We can compute the transform between Frame A and Frame B
+To get the transform from ar->c920 in frame B, just apply the transformation from Frame A to Frame B that we just got
+While in frame b: get the transform from, right_hand_camera->ar and base->right_hand_camera
+In frame B, compute the transform of Base to c920 using this: base->right_hand_camera * right_hand_camera->ar * ar->c920
+Effectively we have the c920 in terms of base just for that one position, but because we know the transform from right_gripper_base->base and base->c920
+We can statically transform the transform from right_gripper_base->c920, anchoring it to follow the right_gripper_base
+and now we have the exact translation and rotation 
+'''
+
 
 # will publish static transform on tf tree with parent_frame->child_frame
 def publish_static_transform(translation, rotation, child_frame, parent_frame):
@@ -36,7 +53,15 @@ def get_transform(listener, parent_frame, child_frame):
         return None, None
 
 
+def invert_transform(trans, rot):
+    mat = concatenate_matrices(
+        translation_matrix(trans), quaternion_matrix(rot))
+    inv = tf.transformations.inverse_matrix(mat)
+    return translation_from_matrix(inv), quaternion_from_matrix(inv)
+
 # given trans_ab, rot_ab, trans_bc, rot_bc -> returns trans_ac and rot_ac
+
+
 def combine_transforms(parent_trans, parent_rot, child_trans, child_rot):
     # Convert to transformation matrices
     parent_matrix = concatenate_matrices(translation_matrix(
@@ -61,84 +86,85 @@ def calculate_full_camera_transform():
     rospy.loginfo("move ar tag in view of webcam")
     input("press enter when in view")
 
-    # If ar_marker_0 is in view of the c920 -> it will be published on the TF tree
-    # grab the ar marker, relative to the webcam
-    
-
-    trans_ar_c920_time_zero, rot_ar_c920_time_zero = get_transform(
+    # get the transform from ar->c920 in frame A
+    trans_ar_c920_A, rot_ar_c920_A = get_transform(
         listener, "ar_marker_0", "logitech_c920")
-    if trans_ar_c920_time_zero is None:
-        rospy.logerr("Failed to get AR tag relative to Logitech C920.")
+    if trans_ar_c920_A is None:
         return
-    
-    trans_base_right_hand_camera_time_zero, rot_base_right_hand_camera_time_zero = get_transform(
-        listener, "base", "right_hand_camera")
-    if trans_ar_c920_time_zero is None:
-        rospy.logerr("Failed to get AR tag relative to Logitech C920.")
-        return
-    
 
+    # transform of base->gripper base in frame A
+    trans_base_right_gripper_base_A, rot_base_right_gripper_base_A = get_transform(
+        listener, "base", "right_gripper_base")
+    if trans_base_right_gripper_base_A is None:
+        return
 
     rospy.loginfo(
         "move ar tag in view of the right_hand_camera  (right_hand_camera).")
     input("press enter when in view")
 
-
-    # do the same here, grabbing the ar marker relative to the right hand camera
-    trans_right_hand_camera_ar_time_new, rot_right_hand_camera_ar_time_new = get_transform(
+    # transform from right_hand_camera to ar in frame B
+    trans_right_hand_camera_ar_B, rot_right_hand_camera_ar_B = get_transform(
         listener, "right_hand_camera", "ar_marker_0")
-    if trans_right_hand_camera_ar_time_new is None:
-        rospy.logerr("Failed to get AR tag relative to right_hand_camera.")
+    if trans_right_hand_camera_ar_B is None:
         return
 
-    trans_base_right_hand_camera_time_new, rot_base_right_hand_camera_time_new = get_transform(
-        listener, "robot_base", "right_hand_camera")
-    if trans_base_right_hand_camera_time_new is None:
-        rospy.logerr(
-            "Failed to get right_hand_camera transform relative to robot base.")
+    # transform from base to gripper base in frame B
+    trans_base_right_gripper_base_B, rot_base_right_gripper_base_B = get_transform(
+        listener, "base", "right_gripper_base")
+    if trans_base_right_gripper_base_B is None:
         return
 
-    # base->right_hand_camera->ar 
+    # transform from base ro right_hand_camera in frame B
+    trans_base_right_hand_camera_B, rot_base_right_hand_camera_B = get_transform(
+        listener, "base", "right_hand_camera")
+    if trans_base_right_hand_camera_B is None:
+        return
 
-    #base->right_gripper_base->right_hand_camera->ar_marker_0
+    # We can get the transfrom from A to B through the right gripper base in each frame
+    # Compute T(A->B)
+    inv_trans_base_right_gripper_base_A, inv_rot_base_right_gripper_base_A = invert_transform(
+        trans_base_right_gripper_base_A, rot_base_right_gripper_base_A
+    )
+    # gives us right_gripper_base -> base in frame A
 
+    trans_A_B, rot_A_B = combine_transforms(inv_trans_base_right_gripper_base_A, inv_rot_base_right_gripper_base_A,
+                                            trans_base_right_gripper_base_B, rot_base_right_gripper_base_B)
 
+    # use the transformation of a->b on ar->c920
+    # computes ar->c920 in terms of B
+    trans_ar_c920_B, rot_ar_c920_B = combine_transforms(
+        trans_A_B, rot_A_B, trans_ar_c920_A, rot_ar_c920_A)
 
+    trans_base_c920_B_step1, rot_base_c920_B_step1 = combine_transforms(
+        trans_base_right_hand_camera_B, rot_base_right_hand_camera_B,
+        trans_right_hand_camera_ar_B, rot_right_hand_camera_ar_B
+    )
+    trans_base_c920_B, rot_base_c920_B = combine_transforms(
+        trans_base_c920_B_step1, rot_base_c920_B_step1,
+        trans_ar_c920_B, rot_ar_c920_B
+    )
 
-    trans_base_ar, rot_base_ar = combine_transforms(
-        trans_base_right_hand_camera, rot_base_right_hand_camera, trans_right_hand_camera_ar, rot_right_hand_camera_ar)
-    rospy.loginfo(f"AR tag transform relative to robot base: {
-                  trans_base_ar}, {rot_base_ar}")
+    # transform from right_gripper_base to base in frame B
+    inv_trans_base_right_gripper_base_B, inv_rot_base_right_gripper_base_B = invert_transform(
+        trans_base_right_gripper_base_B, rot_base_right_gripper_base_B
+    )
 
-    rospy.loginfo(
-        "Calculating Logitech C920 transform relative to robot base...")
+    # transfrom from right_gripper_base -> base -> c920 in frame B
+    trans_right_gripper_base_c920, rot_right_gripper_base_c920 = combine_transforms(
+        inv_trans_base_right_gripper_base_B, inv_rot_base_right_gripper_base_B,
+        trans_base_c920_B, rot_base_c920_B
+    )
 
-    # base->ar->c920
-    # 
+    # Publish the static transform
+    publish_static_transform(trans_right_gripper_base_c920, rot_right_gripper_base_c920,
+                             "logitech_c920", "right_gripper_base")
 
-    #right_gripper_base -> c920
-
-    trans_base_c920, rot_base_c920 = combine_transforms(
-        trans_base_ar, rot_base_ar, trans_ar_c920, rot_ar_c920)
-    rospy.loginfo(f"Logitech relative to robot base: {
-                  trans_base_c920}, {rot_base_c920}")
-    
-    trans_right_gripper_base_c920, rot_right_gripper_base_c920 = 
-
-    # transform from base->logitech will be published as static transform
-    publish_static_transform(
-        trans_base_c920, rot_base_c920, "logitech_c920_fixed", "base")
-
-    publish_static_transform(trans_base_ar, rot_base_ar,
-                             "ar_marker_0_static", "base")
-
-    rospy.loginfo("Transforms done and published")
+    rospy.loginfo("Calibration complete. Static transform published.")
 
 
 if __name__ == "__main__":
     try:
         calculate_full_camera_transform()
-
 
     except rospy.ROSInterruptException:
         pass
