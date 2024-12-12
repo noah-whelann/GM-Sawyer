@@ -167,8 +167,11 @@ def calculate_full_camera_transform():
 
 
 if __name__ == "__main__":
+    rospy.init_node("initial_camera_transform", anonymous=True)
     try:
+
         calculate_full_camera_transform()
+        rospy.spin()
 
     except rospy.ROSInterruptException:
         pass

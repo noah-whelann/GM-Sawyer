@@ -9,13 +9,30 @@
 # Step 1:
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
+
+'''
+commands to run
+roscore
+roslaunch ar_tag_tracking logitech_c920.launch
+roslaunch ar_tag_tracking ar_tracking.launch
+roslaunch ar_tag_tracking sawyer_camera_track.launch
+rosrun rviz rviz
+rosrun chess_tracking find_initial_transform.py
+rosrun chess_tracking piece_detect.py
+rosrun chess_tracking transform_coordinates_service.py
+rosrun chess_tracking board_service.py
+rosrun intera_interface joint_trajectory_action_server.py 
+roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
+
+'''
+
 from csv import Error
 import numpy as np
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
-from move_arm.src.pickup_integ import pickup_and_place
+from move_arm.src.pickup_integ import pickup_and_place, calibrate_gripper, tuck
 import rospkg
 import requests
 import json
@@ -160,6 +177,13 @@ def main():
     # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
     board.create_board()
+
+    input("press enter to calibrate gripper")
+    calibrate_gripper()
+
+    input("press enter to tuck robot")
+    tuck()
+
     update_tile_locations(board)
     update_piece_locations(board)
 
