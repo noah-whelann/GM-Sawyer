@@ -11,7 +11,8 @@ if __name__ == "__main__":
 
     try:
         call_board_service = rospy.ServiceProxy("board_service", BoardString)
-        transform_service = rospy.ServiceProxy('transform_coordinates', TransformPoint)
+        transform_service = rospy.ServiceProxy(
+            'transform_coordinates', TransformPoint)
 
         resp = call_board_service().output
 
@@ -33,6 +34,8 @@ if __name__ == "__main__":
             point_request.z = 1.0  # Hardcoded depth
 
             # Call the transform_coordinates service
+
+            # return type is of Point.transformed_point (consists of x, y, z)
             real_coords = transform_service(point_request)
 
             # Print the transformed point in the base frame

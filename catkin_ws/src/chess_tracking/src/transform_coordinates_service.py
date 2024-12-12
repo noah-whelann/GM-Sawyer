@@ -19,15 +19,16 @@ class TransformCoordinatesService:
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
 
         self.service = rospy.Service(
-            'transform_coordinates', TransformPoint, self.handle_transform_request)
+            'transform_camera_coordinates', TransformPoint, self.handle_transform_request)
 
         rospy.spin()
 
-    def handle_transform_request(self, req):
+    def handle_transform_request(self, req: TransformPoint.input_point) -> Point:
         try:
             # Transform pixel coordinates to camera frame
             point_in_camera = self.transform_to_camera(
-                req.input_point)  # pass in a Point()
+                # req.input_point will return a Point() data type
+                req.input_point)
 
             # Transform the point from the camera frame to the base frame
             point_in_base = self.transform_to_base(point_in_camera)
@@ -41,7 +42,7 @@ class TransformCoordinatesService:
             raise rospy.ServiceException(
                 "Error transforming point: {}".format(e))
 
-    def transform_to_camera(self, pixel_coords):
+    def transform_to_camera(self, pixel_coords: Point) -> Point:
         intrinsic_matrix = [997.1410709758351, 0.0, 620.2712277820584,
                             0.0, 1000.62021150938, 401.6358113787741, 0.0, 0.0, 1.0]
 
@@ -50,7 +51,6 @@ class TransformCoordinatesService:
         c_x = intrinsic_matrix[2]
         c_y = intrinsic_matrix[5]
 
-        # Extract pixel coordinates
         u, v = pixel_coords.x, pixel_coords.y
 
         x_cam = (u - c_x) / f_x
@@ -58,7 +58,7 @@ class TransformCoordinatesService:
         z_cam = 1.0  # Assume a normalized depth value for simplicity
 
         point_in_camera = PointStamped()
-        point_in_camera.header.frame_id = "logitech_c920_fixed"
+        point_in_camera.header.frame_id = "logitech_c920"
         point_in_camera.header.stamp = rospy.Time.now()
         point_in_camera.point.x = x_cam
         point_in_camera.point.y = y_cam
@@ -69,7 +69,7 @@ class TransformCoordinatesService:
 
         return point_in_camera
 
-    def transform_to_base(self, point_in_camera):
+    def transform_to_base(self, point_in_camera: PointStamped) -> Point:
         try:
             transform_base_camera = self.tf_buffer.lookup_transform(
                 "base",                   # Target frame
@@ -78,9 +78,9 @@ class TransformCoordinatesService:
                 rospy.Duration(1.0)
             )
 
-            # Apply the transform to the point
             point_in_base = tf2_geometry_msgs.do_transform_point(
-                point_in_camera, transform_base_camera)
+                point_in_camera, transform_base_camera)  # returns a PointStamped
+
             # same as p_a = T_a_b * p_b, where p_a
 
             rospy.loginfo("Point in base frame: x=%.3f, y=%.3f, z=%.3f",

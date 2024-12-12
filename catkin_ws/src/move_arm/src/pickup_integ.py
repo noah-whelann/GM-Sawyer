@@ -33,19 +33,22 @@ med_v = 0.6
 slow_v = 0.2
 
 
-def pickup_and_place(pickup_coords: Point, place_coords: Point, capture: bool) -> None:
-    # starts node
-    rospy.init_node('service_query')
-    rospy.wait_for_service('compute_ik')
-
-    # starts ik service
-    compute_ik = rospy.ServiceProxy('compute_ik', GetPositionIK)
-
+def calibrate_gripper():
     # calibrate grippy
     right_gripper = robot_gripper.Gripper('right_gripper')
     print('Calibrating gripper...')
     right_gripper.calibrate()
     rospy.sleep(2.0)
+
+
+def pickup_and_place(pickup_coords: Point, place_coords: Point, capture: bool) -> None:
+    # starts node
+    # rospy.init_node('service_query')
+    rospy.wait_for_service('compute_ik')
+
+    # starts ik service
+    compute_ik = rospy.ServiceProxy('compute_ik', GetPositionIK)
+    right_gripper = robot_gripper.Gripper('right_gripper')
 
     # setup right arm
     group = MoveGroupCommander("right_arm")

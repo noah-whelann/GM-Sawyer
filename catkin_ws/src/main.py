@@ -9,13 +9,30 @@
 # Step 1:
 # Define piece pickup z coordinate (lowest point robot should go/pick up piece at)
 #
+
+'''
+commands to run
+roscore
+roslaunch ar_tag_tracking logitech_c920.launch
+roslaunch ar_tag_tracking ar_tracking.launch
+roslaunch ar_tag_tracking sawyer_camera_track.launch
+rosrun rviz rviz
+rosrun chess_tracking find_initial_transform.py
+rosrun chess_tracking piece_detect.py
+rosrun chess_tracking transform_coordinates_service.py
+rosrun chess_tracking board_service.py
+rosrun intera_interface joint_trajectory_action_server.py 
+roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
+python3 main.py
+'''
+
 from csv import Error
 import numpy as np
 from stockfish import Stockfish
 from planning.chessboard import ChessBoard, TileObject
 import rospy
 from geometry_msgs.msg import Point, PointStamped
-from move_arm.src.pickup_integ import pickup_and_place
+from move_arm.src.pickup_integ import pickup_and_place, calibrate_gripper, tuck
 import rospkg
 import requests
 import json
@@ -42,9 +59,34 @@ def get_next_move(fen):
 
 
 def get_board_state(board: ChessBoard):  # return fen of current board state
-    
 
-    return
+    return_fen = []
+
+    for row in range(8, 0, -1):  # iterate down the rows of the board
+        empty = 0
+        each_row = []
+        for i in "ABCDEFGH":  # scan left to right top to bottom
+            tile_name = f"{i}{row}"
+            piece = board.chess_tiles[tile_name].piece if tile_name in board.chess_tiles else ""
+
+            if piece == "":
+                empty += 1
+            else:
+                if empty > 0:
+                    each_row.append(str(empty))
+                each_row.append(piece)
+
+            return_fen.append("".join(each_row))
+
+    # combine all rows
+    piece_placement = "/".join(each_row)
+
+    # placeholders w KQkq - 0 1
+    # white to move, KQ -> black can castle kingside
+    # "- -" means no one can castle
+    # en passant stuff must be added later
+    # last two numers are the halfmove number and fullmove number respectively
+    return f"{piece_placement} w KQkq - 0 1"
 
 
 def transform_camera_to_world(pixel_coords: Point) -> Point:
@@ -135,6 +177,13 @@ def main():
     # stockfish.set_skill_level(5)
     board = ChessBoard()  # initialize chessboard class
     board.create_board()
+
+    input("press enter to calibrate gripper")
+    calibrate_gripper()
+
+    input("press enter to tuck robot")
+    tuck()
+
     update_tile_locations(board)
     update_piece_locations(board)
 

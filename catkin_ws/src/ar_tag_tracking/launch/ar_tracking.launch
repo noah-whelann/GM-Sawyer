@@ -2,6 +2,5 @@
   <!-- AR Track Alvar Node for Logitech webcam -->
   <node name="ar_track_alvar_logitech" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen"
         args="13 0.08 0.2 /logitech_c615/image_raw /logitech_c615/camera_info /logitech_c615">
-    <remap from="/ar_pose_marker" to="/logitech/ar_pose_marker" />
   </node>
 </launch>
