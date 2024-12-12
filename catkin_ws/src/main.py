@@ -32,7 +32,7 @@ rospy.wait_for_service("transform_camera_coordinates")
 def get_next_move(fen):
     header = {fen}
     response = requests.post("https://chess-api.com/v1", json=header)
-    response.raise_for_status() # check for error
+    response.raise_for_status()  # check for error
 
     data = json.loads(response.text)
 
@@ -40,7 +40,9 @@ def get_next_move(fen):
 
     return best_move
 
+
 def get_board_state(board: ChessBoard):  # return fen of current board state
+    
 
     return
 
