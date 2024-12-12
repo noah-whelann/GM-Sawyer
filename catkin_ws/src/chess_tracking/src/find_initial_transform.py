@@ -65,8 +65,6 @@ def invert_transform(trans, rot):
     return translation_from_matrix(inv), quaternion_from_matrix(inv)
 
 # given trans_ab, rot_ab, trans_bc, rot_bc -> returns trans_ac and rot_ac
-
-
 def combine_transforms(trans_ab, rot_ab, trans_bc, rot_bc):
     parent_matrix = concatenate_matrices(
         translation_matrix(trans_ab), quaternion_matrix(rot_ab))
@@ -78,16 +76,18 @@ def combine_transforms(trans_ab, rot_ab, trans_bc, rot_bc):
 
 
 def calculate_full_camera_transform():
-    rospy.init_node("ar_tag_transformer_for_cam")
+    rospy.init_node("calibrate_c920_transform")
     listener = tf.TransformListener()
 
     rospy.loginfo("move ar tag in view of webcam")
     input("press enter when in view")
 
+    # Frame A (before moving robot)
     # get the transform from ar->c920 in frame A
     trans_ar_c920_A, rot_ar_c920_A = get_transform(
         listener, "ar_marker_0", "logitech_c920")
     if trans_ar_c920_A is None:
+        rospy.loginfo("ar tag not in view of camera")
         return
 
     # transform of base->gripper base in frame A
@@ -100,10 +100,12 @@ def calculate_full_camera_transform():
         "move ar tag in view of the right_hand_camera  (right_hand_camera).")
     input("press enter when in view")
 
+    # Frame B (after moving robot)
     # transform from right_hand_camera to ar in frame B
     trans_right_hand_camera_ar_B, rot_right_hand_camera_ar_B = get_transform(
         listener, "right_hand_camera", "ar_marker_0")
     if trans_right_hand_camera_ar_B is None:
+        rospy.loginfo("ar tag not in view of right hand camera")
         return
 
     # transform from base to gripper base in frame B
