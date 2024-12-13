@@ -52,14 +52,14 @@ class CLI:
 
         ### BOARD COORDINATES CONFIGURATIONS ###
 
-        self.a1_xy = np.array([0.365, -0.009]) # TODO: hardcode a1's x and y coordinates
-        self.a2_xy = np.array([0.357, 0.049]) # TODO: hardcode a2's x and y coordinates
-        self.b1_xy = np.array([0.422, 0.004]) # TODO: hardcode b1's x and y coordinates
+        self.a1_xy = np.array([0.401, -0.048]) # TODO: hardcode a1's x and y coordinates
+        self.a2_xy = np.array([0.394, 0.007]) # TODO: hardcode a2's x and y coordinates
+        self.b1_xy = np.array([0.456, -0.041]) # TODO: hardcode b1's x and y coordinates
 
         self.right_increment = self.a2_xy - self.a1_xy
         self.down_increment = self.b1_xy - self.a1_xy
 
-        self.z = {"hover":-0.141, "grab":-0.167, "reset":0.231, "drop":0.15, "gripper": -0.1}
+        self.z = {"hover":-0.141, "grab":-0.166, "reset":0.231, "drop":0.15, "gripper": -0.1}
 
         self.running = True
 
@@ -141,7 +141,7 @@ class CLI:
 
         self.limb.move_to_joint_positions(self.standard_tuck_angles)
 
-        print("Finished Tucking Sawyer Robot. \n \n")
+        print("Finished Tucking Scalibrate_c920_transformawyer Robot. \n \n")
 
     def recover(self):
         print("Recovering Sawyer Robot...")
@@ -172,7 +172,7 @@ class CLI:
 
         target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
-        for height in ["reset", "drop", "gripper"]:
+        for height in ["gripper", "hover", "grab"]:
             self.move_to_coord(target_xy, self.z[height])
 
         self.right_gripper.close()
