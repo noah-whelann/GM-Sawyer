@@ -40,8 +40,8 @@ def publish_static_transform(translation, rotation, child_frame, parent_frame):
     ts.transform.rotation.z = rotation[2]
     ts.transform.rotation.w = rotation[3]
     broadcaster.sendTransform(ts)
-    rospy.loginfo(f"Published static transform: {
-                  parent_frame} -> {child_frame}")
+    # rospy.loginfo(f"Published static transform: {
+    #               parent_frame} -> {child_frame}")
 
 
 # returns translation and rotation from parent_frame to child_frame -> trans_ab, rot_ab gives child_frame in terms of parent_frame
@@ -51,12 +51,12 @@ def get_transform(listener, parent_frame, child_frame):
             parent_frame, child_frame, rospy.Time(), rospy.Duration(5.0))
         (trans, rot) = listener.lookupTransform(
             parent_frame, child_frame, rospy.Time(0))
-        rospy.loginfo(f"Transform from {parent_frame} to {
-                      child_frame}: Translation {trans}, Rotation {rot}")
+        # rospy.loginfo(f"Transform from {parent_frame} to {
+        #               child_frame}: Translation {trans}, Rotation {rot}")
         return trans, rot
     except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
-        rospy.logerr(f"Error getting transform from {
-                     parent_frame} to {child_frame}: {e}")
+        # rospy.logerr(f"Error getting transform from {
+        #              parent_frame} to {child_frame}: {e}")
         return None, None
 
 
@@ -80,7 +80,6 @@ def combine_transforms(trans_ab, rot_ab, trans_bc, rot_bc):
 
 
 def calculate_full_camera_transform():
-    rospy.init_node("calibrate_c920_transform")
     listener = tf.TransformListener()
 
     rospy.loginfo("move ar tag in view of webcam")
