@@ -71,6 +71,8 @@ class CLI:
                 self.tile_to_piece[f"{chr(alpha)}{num}"] = ""
         
         self.board_updater = BoardUpdater()
+        
+        self.drop_off = (0.722, -0.013)  # piece drop off spot (after taking)
 
     def run(self):
         self.calibrate()
@@ -101,14 +103,30 @@ class CLI:
 
                 from_tile = data["from"]
                 to_tile = data["to"]
-
+                capture = data["isCapture"] #boolean of capturing
+                
+                
+                if capture:
+                    if input(f"Begin picking up tile at {to_tile}? (y/n)") == "y":
+                        self.pick_up_tile(to_tile)
+                    else:
+                        raise Exception("Aborting process")
+                    
+                    if input(f"Begin placing tile at drop off point? (y/n)") == "y":
+                        self.move_to_coord(self.drop_off, self.z['drop'])
+                        self.right_gripper.open()
+                        rospy.sleep(2.0)
+                        
+                    else:
+                        raise Exception("Aborting process")
+                    
                 if input(f"Begin picking up tile at {from_tile}? (y/n)") == "y":
                     self.pick_up_tile(from_tile)
                 else:
                     raise Exception("Aborting process")
                 
                 if input(f"Begin placing tile at {to_tile}? (y/n)") == "y":
-                    self.pick_up_tile(from_tile)
+                    self.pick_up_tile(to_tile)
                 else:
                     raise Exception("Aborting process")
 
@@ -176,6 +194,7 @@ class CLI:
             self.move_to_coord(target_xy, self.z[height])
 
         self.right_gripper.close()
+        rospy.sleep(2.0)
 
         self.recover()
     
@@ -192,6 +211,7 @@ class CLI:
             self.move_to_coord(target_xy, self.z[height])
         
         self.right_gripper.open()
+        rospy.sleep(2.0)
 
         self.recover()
 
