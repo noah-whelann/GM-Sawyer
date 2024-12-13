@@ -52,12 +52,16 @@ class CLI:
 
         ### BOARD COORDINATES CONFIGURATIONS ###
 
-        self.a1_xy = np.array([0.401, -0.048]) # TODO: hardcode a1's x and y coordinates
-        self.a2_xy = np.array([0.394, 0.007]) # TODO: hardcode a2's x and y coordinates
-        self.b1_xy = np.array([0.456, -0.041]) # TODO: hardcode b1's x and y coordinates
+        self.a1_xy = np.array([])
+        self.a8_xy = np.array([])
+        self.h1_xy = np.array([])
 
-        self.right_increment = self.a2_xy - self.a1_xy
-        self.down_increment = self.b1_xy - self.a1_xy
+        self.right_increment = (self.a8_xy - self.a1_xy)/8
+        self.down_increment = (self.h1_xy - self.a1_xy)/8
+
+        # self.a1_xy = np.array([0.401, -0.048]) # TODO: hardcode a1's x and y coordinates
+        # self.a2_xy = np.array([0.394, 0.007]) # TODO: hardcode a2's x and y coordinates
+        # self.b1_xy = np.array([0.456, -0.041]) # TODO: hardcode b1's x and y coordinates
 
         self.z = {"hover":-0.141, "grab":-0.166, "reset":0.231, "drop":0.15, "gripper": -0.1}
 
