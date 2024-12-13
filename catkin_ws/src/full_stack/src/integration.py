@@ -6,12 +6,13 @@ import intera_interface
 from moveit_commander import MoveGroupCommander
 from moveit_msgs.srv import GetPositionIK, GetPositionIKRequest
 from chess_tracking.srv import Screenshot
+from intera_interface import gripper as robot_gripper 
 
 import numpy as np
 
 import requests
 import json
-from move_arm.src.pickup_integ import pickup_and_place
+#from move_arm.src.pickup_integ import pickup_and_place
 
 from board_lib import BoardUpdater
 
@@ -48,7 +49,7 @@ class CLI:
 
         self.tip_name = "right_gripper_tip"
 
-        self.right_gripper = intera_interface.gripper.Gripper("right_gripper")
+        self.right_gripper = robot_gripper.Gripper('right_gripper')
 
 
         ### BOARD COORDINATES CONFIGURATIONS ###
@@ -66,7 +67,7 @@ class CLI:
         # self.a2_xy = np.array([0.394, 0.007]) # TODO: hardcode a2's x and y coordinates
         # self.b1_xy = np.array([0.456, -0.041]) # TODO: hardcode b1's x and y coordinates
 
-        self.z = {"hover":-0.141, "grab":-0.166, "reset":0.231, "drop":0.15, "gripper": -0.1}
+        self.z = {"hover":-0.1, "grab":-0.163, "reset":0.231, "drop":0.15, "gripper": -0.1}
 
         self.running = True
 
@@ -121,9 +122,7 @@ class CLI:
                         raise Exception("Aborting process")
                     
                     if input(f"Begin placing tile at drop off point? (y/n)") == "y":
-                        self.move_to_coord(self.drop_off, self.z['drop'])
-                        self.right_gripper.open()
-                        rospy.sleep(2.0)
+                        self.place_tile("a10")
                         
                     else:
                         raise Exception("Aborting process")
@@ -134,7 +133,7 @@ class CLI:
                     raise Exception("Aborting process")
                 
                 if input(f"Begin placing tile at {to_tile}? (y/n)") == "y":
-                    self.pick_up_tile(to_tile)
+                    self.place_tile(to_tile)
                 else:
                     raise Exception("Aborting process")
 
@@ -177,17 +176,17 @@ class CLI:
 
         self.limb.move_to_joint_positions(self.standard_tuck_angles)
 
-    def arm_to_tile(self, tile_name):
-        row = tile_name[0]  # alphabet
-        col = tile_name[1]  # number
+    # def arm_to_tile(self, tile_name):
+    #     row = tile_name[0]  # alphabet
+    #     col = tile_name[1]  # number
 
-        num_down = ord(row) - ord('a')
-        num_right = int(col) - 1
+    #     num_down = ord(row) - ord('a')
+    #     num_right = int(col) - 1
 
-        target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
+    #     target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
-        for height in ["reset", "drop", "gripper"]:
-            self.move_to_coord(target_xy, self.z[height])
+    #     for height in ["reset", "drop", "gripper"]:
+    #         self.move_to_coord(target_xy, self.z[height])
 
     def pick_up_tile(self, tile_name):
         row = tile_name[0]  # alphabet
@@ -200,8 +199,11 @@ class CLI:
 
         for height in ["hover", "grab", "reset"]:
             self.move_to_coord(target_xy, self.z[height])
-
-        self.right_gripper.close()
+            if height == 'grab':
+                print("closing...")
+                self.right_gripper.close()
+                rospy.sleep(2.0)
+            
         rospy.sleep(2.0)
 
         self.recover()
@@ -215,10 +217,12 @@ class CLI:
 
         target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
-        for height in ["reset", "drop", "gripper"]:
+        for height in ["hover", "grab", "reset"]:
             self.move_to_coord(target_xy, self.z[height])
-        
-        self.right_gripper.open()
+            if height == 'grab':
+                print("opening...")
+                self.right_gripper.open()
+                rospy.sleep(2.0)
         rospy.sleep(2.0)
 
         self.recover()
