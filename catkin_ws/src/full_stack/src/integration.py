@@ -11,6 +11,7 @@ import numpy as np
 
 import requests
 import json
+from move_arm.src.pickup_integ import pickup_and_place
 
 from board_lib import BoardUpdater
 
@@ -52,12 +53,14 @@ class CLI:
 
         ### BOARD COORDINATES CONFIGURATIONS ###
 
-        self.a1_xy = np.array([])
-        self.a8_xy = np.array([])
-        self.h1_xy = np.array([])
+        self.a1_xy = np.array([0.360, -0.139])
+        self.a8_xy = np.array([0.338, 0.256])
+        self.h1_xy = np.array([0.756, -0.120])
 
-        self.right_increment = (self.a8_xy - self.a1_xy)/8
-        self.down_increment = (self.h1_xy - self.a1_xy)/8
+        self.right_total = self.a8_xy - self.a1_xy
+        self.down_total = self.h1_xy - self.a1_xy
+        self.right_increment = self.right_total/7
+        self.down_increment = self.down_total/7
 
         # self.a1_xy = np.array([0.401, -0.048]) # TODO: hardcode a1's x and y coordinates
         # self.a2_xy = np.array([0.394, 0.007]) # TODO: hardcode a2's x and y coordinates
@@ -113,6 +116,7 @@ class CLI:
                 if capture:
                     if input(f"Begin picking up tile at {to_tile}? (y/n)") == "y":
                         self.pick_up_tile(to_tile)
+
                     else:
                         raise Exception("Aborting process")
                     
@@ -194,7 +198,7 @@ class CLI:
 
         target_xy = self.a1_xy + self.down_increment * num_down + self.right_increment * num_right
 
-        for height in ["gripper", "hover", "grab"]:
+        for height in ["hover", "grab", "reset"]:
             self.move_to_coord(target_xy, self.z[height])
 
         self.right_gripper.close()
