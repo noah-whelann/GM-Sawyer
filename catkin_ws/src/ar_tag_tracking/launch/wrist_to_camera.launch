@@ -12,5 +12,5 @@
     -->
 
     <node pkg="tf2_ros" type="static_transform_publisher" name="right_gripper_base_to_logitech_c920" 
-          args="0.05 0.0 0.0 0.0 0.0 0.0 1.0 right_gripper_base logitech_c920" />
+          args="0.05 0.0 0.075 0.0 0.0 1.0 0.0  right_gripper_base logitech_c920" />
 </launch>

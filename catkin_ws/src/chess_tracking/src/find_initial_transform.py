@@ -95,7 +95,7 @@ def calculate_full_camera_transform():
 
     # transform of base->gripper base in frame A
     trans_base_right_gripper_base_A, rot_base_right_gripper_base_A = get_transform(
-        listener, "base", "right_gripper_base")
+        listener, "base", "right_hand")
     if trans_base_right_gripper_base_A is None:
         return
 
@@ -113,7 +113,7 @@ def calculate_full_camera_transform():
 
     # transform from base to gripper base in frame B
     trans_base_right_gripper_base_B, rot_base_right_gripper_base_B = get_transform(
-        listener, "base", "right_gripper_base")
+        listener, "base", "right_hand")
     if trans_base_right_gripper_base_B is None:
         return
 
@@ -160,7 +160,7 @@ def calculate_full_camera_transform():
 
     # Publish the static transform
     publish_static_transform(trans_right_gripper_base_c920, rot_right_gripper_base_c920,
-                             "logitech_c920", "right_gripper_base")
+                             "logitech_c920", "right_hand")
 
     rospy.loginfo("Static transform published.")
 
